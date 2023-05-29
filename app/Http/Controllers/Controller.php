@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 /**
  * @OA\Info(
- *    title="APIs For Lucky",
+ *    title="APIs For Bregma",
  *    version="1.0.0",
  * ),
  *   @OA\SecurityScheme(

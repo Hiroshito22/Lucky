@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Acceso;
-use App\Models\AccesoRol;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
@@ -21,7 +20,7 @@ class AuthController extends Controller
         $credentials = $request->only('username', 'password');
         $username = User::where('username', $request->username)->first();
         if (!$username) return response()->json(["error" => "El nombre de usuario no existe"], 400);
-        $user = User::with('persona', 'user_rol', 'roles')->where('username', $request->username)->where('estado_registro', 'A')->first();
+        $user = User::with('persona')->where('username', $request->username)->where('estado_registro', 'A')->first();
 
         if (!$user) return response()->json(['error' => 'Usuario bloqueado'], 402);
 
@@ -33,38 +32,17 @@ class AuthController extends Controller
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-        //$rol[]=$user->administrador_medical;
-        //return response()->json(compact('token'));
-        $accesos = AccesoRol::where('rol_id', $user->roles[0]->id)->get();
-        $accesos_id = [];
-        foreach ($accesos as $rol) {
-            $accesos_id[] = $rol['acceso_id'];
-            $trees = Acceso::find($rol['acceso_id'])->descendants;
-            if (count($trees) > 0) {
-                foreach ($trees as $tree) {
-                    $accesos_id[] = $tree['id'];
-                }
-            }
-        }
-        // return response()->json($accesos_id);
-        // return response()->json($accesos_id);
-        $tree = Acceso::tree()->findMany($accesos_id);
-        $tree = $tree->toTree();
-
-
         $response = array(
             "id" => $user->id,
             "persona_id" => $user->persona_id,
             "username" => $user->username,
             "persona" => $user->persona,
-            "user_rol" => $user->user_rol,
-            "roles" => $user->roles,
-            "accesos" => $tree,
         );
         $response['token'] = $token;
-        //$user["roles"]=$rol;
         return response()->json($response);
     }
+
+
     public function getAuthenticatedUser()
     {
         try {
@@ -87,21 +65,13 @@ class AuthController extends Controller
     }
     public function my()
     {
-        $my = User::with('persona', 'user_rol', 'roles')->find(auth()->user()->id);
-        $accesos = AccesoRol::where('rol_id', $my->roles[0]->id)->get();
-        $accesos_id = [];
-        foreach ($accesos as $rol) {
-            $accesos_id[] = $rol['acceso_id'];
-        }
-        $tree = Acceso::with('descendants')->findMany($accesos_id);
+        $my = User::with('persona')->find(auth()->user()->id);
+        
         $response = array(
             "id" => $my->id,
             "persona_id" => $my->persona_id,
             "username" => $my->username,
             "persona" => $my->persona,
-            "user_rol" => $my->user_rol,
-            "roles" => $my->roles,
-            "accesos" => $tree,
         );
 
         return response()->json(["data" => $response]);

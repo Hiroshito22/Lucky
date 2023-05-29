@@ -3,8 +3,7 @@
 namespace App;
 
 use App\Models\Persona;
-use App\Models\Rol;
-use App\Models\UserRol;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
@@ -51,11 +50,5 @@ class User extends Authenticatable implements JWTSubject
         }
         public function persona(){
             return $this->belongsTo(Persona::class,'persona_id','id');
-        }
-        public function user_rol(){
-            return $this->hasMany(UserRol::class,'user_id','id');
-        }
-        public function roles(){
-            return $this->belongsToMany(Rol::class,'users_rol');
         }
 }

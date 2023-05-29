@@ -32,10 +32,6 @@ class CreatePersonaTable extends Migration
             $table->foreignId('tipo_documento_id')->nullable()->references('id')->on('tipo_documento');
             $table->foreignId('distrito_id')->nullable()->references('id')->on('distritos');
             $table->foreignId('distrito_domicilio_id')->nullable()->references('id')->on('distritos');
-            $table->foreignId('estado_civil_id')->nullable()->references('id')->on('estado_civil');
-            $table->foreignId('religion_id')->nullable()->references('id')->on('religion');
-            $table->foreignId('sexo_id')->nullable()->references('id')->on('sexo');
-            $table->foreignId('grado_instruccion_id')->nullable()->references('id')->on('grado_instruccion');
             $table->timestamps();
         });
     }

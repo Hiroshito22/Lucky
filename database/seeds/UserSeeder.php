@@ -13,54 +13,30 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $persona = Persona::firstOrCreate([
-            "numero_documento"=>"11111111",
-            "tipo_documento_id"=>1,
-            "nombres"=>"Coorporativo",
-            "apellido_paterno"=>"Adm Cooporativo",
-            "apellido_materno"=>"Adm Cooporativo",
-        ]);
-        $user = User::firstOrCreate(
+        $persona = Persona::firstOrCreate(
+            [
+                "tipo_documento_id"=>null,
+                "numero_documento"=>"00000000",
+            ],
+            [
+                "nombres"=>"Administrador",
+                "apellido_paterno"=>"Super",
+                "apellido_materno"=>"Admin",
+            ]
+        );
+        $usuario = User::firstOrCreate(
             [
                 "persona_id"=>$persona->id,
                 "username"=>$persona->numero_documento,
+
             ],
             [
                 "password"=>$persona->numero_documento,
             ]
         );
 
-        $user_rol = UserRol::updateOrCreate(
-            [
-                "user_id"=>$user->id,
-                "rol_id"=>1,
-                "tipo_rol"=>1,
-
-            ],
-            [
-                "estado_registro"=>"A"
-            ]
-        );
-        $user_rol = UserRol::updateOrCreate(
-            [
-                "user_id"=>$user->id,
-                "rol_id"=>2,
-                "tipo_rol"=>2,
-
-            ],
-            [
-                "estado_registro"=>"A"
-            ]
-        );
-        $user_rol = UserRol::updateOrCreate(
-            [
-                "user_id"=>$user->id,
-                "rol_id"=>3,
-                "tipo_rol"=>3,
-            ],
-            [
-                "estado_registro"=>"A"
-            ]
-        );
+        
     }
+
+    
 }

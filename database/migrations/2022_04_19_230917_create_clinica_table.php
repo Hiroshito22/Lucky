@@ -17,7 +17,6 @@ class CreateClinicaTable extends Migration
             $table->id();
             $table->foreignId('tipo_documento_id')->nullable()->references('id')->on('tipo_documento');
             $table->foreignId('distrito_id')->nullable()->references('id')->on('distritos');
-            // $table->foreignId('user_rol_id')->nullable()->references('id')->on('user_rol');
             $table->string('razon_social')->nullable();
             $table->string('numero_documento')->nullable();
             $table->string('responsable')->nullable();
@@ -27,7 +26,6 @@ class CreateClinicaTable extends Migration
             $table->string('direccion')->nullable();
             $table->string('logo')->nullable();
             $table->char('estado_pago')->default('A');
-            //$table->foreignId('hospital_id')->nullable()->references('id')->on('hospital');
             $table->char('estado_registro')->default('A');
             $table->timestamps();
         });

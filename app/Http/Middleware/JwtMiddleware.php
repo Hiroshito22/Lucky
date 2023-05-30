@@ -1,5 +1,8 @@
 <?php
+
 namespace App\Http\Middleware;
+
+use App\Http\Middleware;
 use Closure;
 use JWTAuth;
 use Exception;
@@ -7,7 +10,7 @@ use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth as FacadesJWTAuth;
 
-class JwtMiddlware
+class JwtMiddleware extends BaseMiddleware
 {
     /**
      * Handle an incoming request.

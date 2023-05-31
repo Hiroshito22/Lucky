@@ -15,8 +15,10 @@ class CreateBoletaTable extends Migration
     {
         Schema::create('boleta', function (Blueprint $table) {
             $table->id();
-            $table->string('precio')->nullable();
-            $table->char('estado_registro')->default('A');
+            $table->foreignId('producto_id')->nullable()->references('id')->on('producto');
+            $table->foreignId('persona_id')->nullable()->references('id')->on('persona');
+            $table->string('cantidad')->nullable();
+            $table->foreignId('tipo_boleta_id')->nullable()->references('id')->on('tipo_boleta');
             $table->timestamps();
         });
     }

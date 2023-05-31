@@ -53,6 +53,14 @@ Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
     Route::delete('team/big/delete/{id}', 'TeamBigController@delete');
     Route::get('team/big/show', 'TeamBigController@show');
     Route::delete('team/big/destroy/{id}', 'TeamBigController@destroy');
+
+
+    //Producto
+    Route::post('producto/create', 'ProductoController@create');
+    Route::put('producto/update/{id}', 'ProductoController@update');
+    Route::delete('producto/delete/{id}', 'ProductoController@delete');
+    Route::get('producto/show', 'ProductoController@show');
+    Route::delete('producto/destroy/{id}', 'ProductoController@destroy');
 });
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

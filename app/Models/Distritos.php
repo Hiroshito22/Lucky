@@ -16,10 +16,6 @@ class Distritos extends Model
         'created_at', 'updated_at','deleted_at'
     ];
     public function provincia(){
-        return $this->belongsTo(Provincia::class);
-    }
-    public function clinica_local()
-    {
-        return $this->hasMany(ClinicaLocal::class)->where('estado_registro','A');
+        return $this->belongsTo(Provincia::class,'provincia_id','id');
     }
 }

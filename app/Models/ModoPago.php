@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TipoProducto extends Model
+class ModoPago extends Model
 {
     use HasFactory;
-    protected $table = 'tipo_producto';
+    protected $table = 'modo_pago';
     protected $fillable = array(
                             'nombre',
+                            'estado_registro',
                         );
     protected $primaryKey = 'id';
     protected $hidden = [

@@ -5,15 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Marca extends Model
+class Gerente extends Model
 {
     use HasFactory;
-    protected $table = 'marca';
+    protected $table = 'gerente';
     protected $fillable = array(
-                            'nombre',
+                            'persona_id',
+                            'direccion_legal',
+                            'estado_registro',
                         );
     protected $primaryKey = 'id';
     protected $hidden = [
         'created_at', 'updated_at','deleted_at'
     ];
+    public function persona(){
+        return $this->belongsTo(Persona::class,'persona_id','id');
+    }
 }

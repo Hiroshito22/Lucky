@@ -21,8 +21,4 @@ class Provincia extends Model
     public function distritos(){
         return $this->hasMany(Distritos::class);
     }
-    // public function clinica_local()
-    // {
-    //     return $this->hasMany(ClinicaLocal::class)->where('estado_registro','A');
-    // }
 }

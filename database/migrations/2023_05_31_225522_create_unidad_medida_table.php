@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTipoBoletaTable extends Migration
+class CreateUnidadMedidaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateTipoBoletaTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_boleta', function (Blueprint $table) {
+        Schema::create('unidad_medida', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->nullable();
+            $table->string('codigo')->nullable();
+            $table->string('simbolo')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateTipoBoletaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_boleta');
+        Schema::dropIfExists('unidad_medida');
     }
 }

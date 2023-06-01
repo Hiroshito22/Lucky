@@ -1,7 +1,8 @@
 <?php
 
-namespace Database\Seeders;
+//namespace Database\Seeders;
 
+use App\Models\TipoDocumento;
 use Illuminate\Database\Seeder;
 
 class TipoDocumentoSeeder extends Seeder
@@ -13,6 +14,15 @@ class TipoDocumentoSeeder extends Seeder
      */
     public function run()
     {
-        
+        TipoDocumento::firstOrcreate([
+            "nombre"=>"DNI",
+            "codigo" => "1",
+            "descripcion"=>"Documento Nacional de Identidad",
+        ]);
+        TipoDocumento::firstOrcreate([
+            "nombre"=>"RUC",
+            "codigo" => "2",
+            "descripcion"=>"Registro Unico Contribuyente",
+        ]);
     }
 }

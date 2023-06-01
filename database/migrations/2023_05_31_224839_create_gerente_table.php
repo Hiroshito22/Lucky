@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBoletaTable extends Migration
+class CreateGerenteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateBoletaTable extends Migration
      */
     public function up()
     {
-        Schema::create('boleta', function (Blueprint $table) {
+        Schema::create('gerente', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('producto_id')->nullable()->references('id')->on('producto');
             $table->foreignId('persona_id')->nullable()->references('id')->on('persona');
-            $table->string('cantidad')->nullable();
-            $table->foreignId('tipo_boleta_id')->nullable()->references('id')->on('tipo_boleta');
+            $table->string('direccion_legal')->nullable();
+            $table->char('estado_registro')->default('A');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateBoletaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boleta');
+        Schema::dropIfExists('gerente');
     }
 }

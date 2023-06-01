@@ -5,20 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TeamBig extends Model
+class TipoRol extends Model
 {
     use HasFactory;
-    protected $table = 'team_big';
+    protected $table = 'tipo_rol';
     protected $fillable = array(
-                            'nombre',
-                            'medida',
-                            "contenido",
-                            "caducidad",
-                            "estado_registro",
-
+                            'rol_id',
+                            'estado_registro',
                         );
     protected $primaryKey = 'id';
     protected $hidden = [
         'created_at', 'updated_at','deleted_at'
     ];
+    public function rol(){
+        return $this->belongsTo(Rol::class,'rol_id','id');
+    }
 }

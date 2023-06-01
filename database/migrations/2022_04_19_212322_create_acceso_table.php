@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMarcaTable extends Migration
+class CreateAccesoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateMarcaTable extends Migration
      */
     public function up()
     {
-        Schema::create('marca', function (Blueprint $table) {
+        Schema::create('acceso', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->nullable();
-            $table->foreignId('producto_id')->nullable()->references('id')->on('producto');
+            $table->string('url')->nullable();
+            $table->string('icon')->nullable();
+            $table->string('label')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->char('estado_registro')->default('A');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateMarcaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('marca');
+        Schema::dropIfExists('acceso');
     }
 }

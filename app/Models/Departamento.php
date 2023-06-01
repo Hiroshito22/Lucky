@@ -17,8 +17,4 @@ class Departamento extends Model
     public function provincias(){
         return $this->hasMany(Provincia::class);
     }
-    // public function clinica_local()
-    // {
-    //     return $this->hasMany(ClinicaLocal::class)->where('estado_registro','A');
-    // }
 }

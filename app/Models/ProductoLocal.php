@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Boleta extends Model
+class ProductoLocal extends Model
 {
     use HasFactory;
-    protected $table = 'boleta';
+    protected $table = 'producto_local';
     protected $fillable = array(
-                            'cantidad',
                             'producto_id',
-                            'persona_id',
-                            'tipo_boleta_id',
+                            'local_id',
                         );
     protected $primaryKey = 'id';
     protected $hidden = [
@@ -22,10 +20,7 @@ class Boleta extends Model
     public function producto(){
         return $this->belongsTo(Producto::class,'producto_id','id');
     }
-    public function persona(){
-        return $this->belongsTo(Persona::class,'persona_id','id');
-    }
-    public function tipo_boleta(){
-        return $this->belongsTo(TipoBoleta::class,'tipo_boleta_id','id');
+    public function local(){
+        return $this->belongsTo(Local::class,'local_id','id');
     }
 }

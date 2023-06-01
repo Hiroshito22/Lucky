@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTipoProductoTable extends Migration
+class CreateTipoRolTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateTipoProductoTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_producto', function (Blueprint $table) {
+        Schema::create('tipo_rol', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->nullable();
+            $table->foreignId('rol_id')->nullable()->references('id')->on('rol');
+            $table->char('estado_registro')->default('A');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateTipoProductoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_producto');
+        Schema::dropIfExists('tipo_rol');
     }
 }

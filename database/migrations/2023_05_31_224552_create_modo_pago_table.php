@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTeamBigTable extends Migration
+class CreateModoPagoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateTeamBigTable extends Migration
      */
     public function up()
     {
-        Schema::create('team_big', function (Blueprint $table) {
+        Schema::create('modo_pago', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->nullable();
-            $table->string('medida')->nullable();
-            $table->string('contenido')->nullable();
-            $table->date('caducidad')->nullable();
             $table->char('estado_registro')->default('A');
             $table->timestamps();
         });
@@ -31,6 +28,6 @@ class CreateTeamBigTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('team_big');
+        Schema::dropIfExists('modo_pago');
     }
 }

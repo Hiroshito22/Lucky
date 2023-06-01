@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Marca extends Model
+class UnidadMedida extends Model
 {
     use HasFactory;
-    protected $table = 'marca';
+    protected $table = 'unidad_medida';
     protected $fillable = array(
                             'nombre',
+                            'codigo',
+                            'simbolo',
                         );
     protected $primaryKey = 'id';
     protected $hidden = [

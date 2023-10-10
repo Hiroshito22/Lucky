@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
                 $this->call(UserSeeder::class);
                 $this->call(TipoDocumentoSeeder::class);
                 $this->call(MarcaSeeder::class);
-                $this->call(GlobalAccesoSeeder::class);
+                //$this->call(GlobalAccesoSeeder::class);
                 $this->call(RolSeeder::class);
                 $this->call(GlobalTipoRolSeeder::class);
-                $this->call(GlobalUnidadMedidaSeeder::class);
+                //$this->call(GlobalUnidadMedidaSeeder::class);
         }
 }

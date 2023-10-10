@@ -16,7 +16,7 @@ class CreateRolTable extends Migration
         Schema::create('rol', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->nullable();
-            $table->foreignId('acceso_id')->nullable()->references('id')->on('acceso');
+            //$table->foreignId('acceso_id')->nullable()->references('id')->on('acceso');
             $table->char('estado_registro')->default('A');
             $table->timestamps();
         });

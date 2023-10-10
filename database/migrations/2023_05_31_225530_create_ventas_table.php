@@ -17,7 +17,7 @@ class CreateVentasTable extends Migration
             $table->id();
             $table->foreignId('producto_id')->nullable()->references('id')->on('producto');
             $table->foreignId('persona_id')->nullable()->references('id')->on('persona');
-            $table->foreignId('modo_pago_id')->nullable()->references('id')->on('modo_pago');
+            //$table->foreignId('modo_pago_id')->nullable()->references('id')->on('modo_pago');
             $table->timestamps();
         });
     }

@@ -16,17 +16,14 @@ class RolSeeder extends Seeder
     {
         Rol::updateOrCreate([
             "nombre" => "Administrador Gerente",
-            "acceso_id" => 1,
             "estado_registro" => "A"
         ]);
         Rol::updateOrCreate([
             "nombre" => "Administrador Trabajador",
-            "acceso_id" => 2,
             "estado_registro" => "A"
         ]);
         Rol::updateOrCreate([
             "nombre" => "Administrador Cliente",
-            "acceso_id" => 3,
             "estado_registro" => "A"
         ]);
     }

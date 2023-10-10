@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUnidadMedidaTable extends Migration
+class CreateAlmacenTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateUnidadMedidaTable extends Migration
      */
     public function up()
     {
-        Schema::create('unidad_medida', function (Blueprint $table) {
+        Schema::create('almacen', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->nullable();
-            $table->string('codigo')->nullable();
-            $table->string('simbolo')->nullable();
+            $table->string('descripcion')->nullable();
+            $table->foreignId('producto_id')->nullable()->references('id')->on('producto');
+            $table->foreignId('empresa_id')->nullable()->references('id')->on('empresa');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateUnidadMedidaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('unidad_medida');
+        Schema::dropIfExists('almacen');
     }
 }

@@ -18,7 +18,6 @@ class CreateProductoTable extends Migration
             $table->string('descripcion')->nullable();
             $table->foreignId('empresa_id')->nullable()->references('id')->on('empresa');
             $table->foreignId('marca_id')->nullable()->references('id')->on('marca');
-            //$table->foreignId('unidad_medida_id')->nullable()->references('id')->on('unidad_medida');
             $table->string('foto')->nullable();
             $table->integer('cantidad')->nullable();
             $table->char('estado_registro')->default('A');

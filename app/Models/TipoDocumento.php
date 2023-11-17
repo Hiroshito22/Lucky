@@ -9,7 +9,9 @@ class TipoDocumento extends Model
     protected $table = 'tipo_documento';
     protected $fillable = array(
         'nombre',
-        'descripcion'
+        'codigo',
+        'descripcion',
+        'estado_registro'
     );
     protected $primaryKey = 'id';
     protected $hidden = [

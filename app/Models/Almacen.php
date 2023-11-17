@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductoLocal extends Model
+class Almacen extends Model
 {
     use HasFactory;
-    protected $table = 'producto_local';
+    protected $table = 'almacen';
     protected $fillable = array(
+                            'descripcion',
                             'producto_id',
-                            'local_id',
+                            'empresa_id',
                         );
     protected $primaryKey = 'id';
     protected $hidden = [
@@ -20,7 +21,7 @@ class ProductoLocal extends Model
     public function producto(){
         return $this->belongsTo(Producto::class,'producto_id','id');
     }
-    public function local(){
-        return $this->belongsTo(Local::class,'local_id','id');
+    public function empresa(){
+        return $this->belongsTo(Empresa::class,'empresa_id','id');
     }
 }

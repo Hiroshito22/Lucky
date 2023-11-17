@@ -1,12 +1,7 @@
 <?php
 
-use AccesoSeeder as GlobalAccesoSeeder;
-use Database\Seeders\AccesoSeeder;
-use Database\Seeders\TipoRolSeeder;
-use Database\Seeders\UnidadMedidaSeeder;
 use Illuminate\Database\Seeder;
 use TipoRolSeeder as GlobalTipoRolSeeder;
-use UnidadMedidaSeeder as GlobalUnidadMedidaSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,9 +18,8 @@ class DatabaseSeeder extends Seeder
                 $this->call(UserSeeder::class);
                 $this->call(TipoDocumentoSeeder::class);
                 $this->call(MarcaSeeder::class);
-                //$this->call(GlobalAccesoSeeder::class);
                 $this->call(RolSeeder::class);
+                $this->call(EmpresaSeeder::class);
                 $this->call(GlobalTipoRolSeeder::class);
-                //$this->call(GlobalUnidadMedidaSeeder::class);
         }
 }

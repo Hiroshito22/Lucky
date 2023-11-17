@@ -12,6 +12,7 @@ class Trabajador extends Model
     protected $fillable = array(
                             'persona_id',
                             'direccion_legal',
+                            'rol_id',
                             'estado_registro',
                         );
     protected $primaryKey = 'id';
@@ -20,5 +21,8 @@ class Trabajador extends Model
     ];
     public function persona(){
         return $this->belongsTo(Persona::class,'persona_id','id');
+    }
+    public function rol(){
+        return $this->belongsTo(Rol::class,'rol_id','id');
     }
 }

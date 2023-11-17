@@ -15,7 +15,6 @@ class Persona extends Model
                             'nombres',
                             'apellido_paterno',
                             'apellido_materno',
-                            'rol_id',
                             'celular',
                             'correo',
                             'distrito_id',

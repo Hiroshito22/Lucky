@@ -23,18 +23,15 @@ use App\Models\Rol;
 Route::group(['middleware' => ['cors']], function () {
 
     Route::post('login', 'AuthController@authenticate');
-    Route::get('tipodocumentos/get', 'TipoDocumentoController@get');
-    
-
-    //Dep, Dist, Prov
-    Route::get('departamento', 'UbicacionController@departamentos');
-    Route::get('provincia/{departamentoId}', 'UbicacionController@provincias');
-    Route::get('distrito/{provinciaId}', 'UbicacionController@distritos');
+    Route::post('user/create', 'UserController@create');
 });
 Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
 
     // Actualizar contraseña
     Route::put('password/update', 'AuthController@updatePassword');
+
+    //Trabajador
+    Route::post('trabajador/create','TrabajadorController@create');
 
     //Persona
     Route::get('persona/show','PersonaController@getShow');

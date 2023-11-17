@@ -15,10 +15,11 @@ class CreateEmpresaTable extends Migration
     {
         Schema::create('empresa', function (Blueprint $table) {
             $table->id();
+            $table->string('numero_documento')->unique();
             $table->string('razon_social')->nullable();
             $table->string('logo')->nullable();
             $table->foreignId('distrito_id')->nullable()->references('id')->on('distritos');
-            $table->foreignId('trabajador_id')->nullable()->references('id')->on('trabajador');
+            $table->string('direccion_legal')->nullable();
             $table->timestamps();
         });
     }

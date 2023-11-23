@@ -36,22 +36,11 @@ Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
     //Persona
     Route::get('persona/show','PersonaController@getShow');
     Route::get('persona/get','PersonaController@get');
-    Route::get('persona/find/{num_documento}','PersonaController@findbydni');
+    //Route::get('persona/find/{num_documento}','PersonaController@findbydni');
     Route::post('persona/store','PersonaController@store');
     Route::post('persona/update/{id}','PersonaController@update');
     Route::delete('persona/delete/{id}','PersonaController@delete');
     Route::delete('persona/destroy/{id}','PersonaController@destroy');
-
-    
-
-    //team big
-    Route::post('team/big/create', 'TeamBigController@create');
-    Route::put('team/big/update/{id}', 'TeamBigController@update');
-    Route::delete('team/big/delete/{id}', 'TeamBigController@delete');
-    Route::get('team/big/show', 'TeamBigController@show');
-    Route::delete('team/big/destroy/{id}', 'TeamBigController@destroy');
-
-
     //Producto
     Route::post('producto/create', 'ProductoController@create');
     Route::put('producto/update/{id}', 'ProductoController@update');

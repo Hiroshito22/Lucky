@@ -46,4 +46,6 @@ class TrabajadorController extends Controller
             return response()->json(["error" => "error " . $e], 500);
         }
     }
+
+    
 }

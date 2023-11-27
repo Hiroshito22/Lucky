@@ -47,6 +47,9 @@ Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
     Route::delete('producto/delete/{id}', 'ProductoController@delete');
     Route::get('producto/show', 'ProductoController@show');
     Route::delete('producto/destroy/{id}', 'ProductoController@destroy');
+    //Salida de Producto
+    Route::post('producto/exportacion', 'ProductoController@export');
+
 });
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

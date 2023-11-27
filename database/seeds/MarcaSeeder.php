@@ -15,31 +15,31 @@ class MarcaSeeder extends Seeder
     public function run()
     {
         Marca::updateOrCreate([
-            "nombre" => "stanley"
+            "nombre" => "ventilador tipo 1"
         ]);
         Marca::updateOrCreate([
-            "nombre" => "Makita"
+            "nombre" => "ventilador tipo 2"
         ]);
         Marca::updateOrCreate([
-            "nombre" => "Bosh"
+            "nombre" => "ventilador tipo 3"
         ]);
         Marca::updateOrCreate([
-            "nombre" => "Truper"
+            "nombre" => "ventilador tipo 4"
         ]);
         Marca::updateOrCreate([
-            "nombre" => "DeWalt"
+            "nombre" => "ventilador tipo 5"
         ]);
         Marca::updateOrCreate([
-            "nombre" => "Rotoplas"
+            "nombre" => "ventilador tipo 6"
         ]);
         Marca::updateOrCreate([
-            "nombre" => "Phillips"
+            "nombre" => "ventilador tipo 7"
         ]);
         Marca::updateOrCreate([
-            "nombre" => "Urrea"
+            "nombre" => "ventilador tipo 8"
         ]);
         Marca::updateOrCreate([
-            "nombre" => "Black&Decker"
+            "nombre" => "ventilador tipo 9"
         ]);
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
+use Database\Seeders\ProductoSeeder;
 use Illuminate\Database\Seeder;
+use ProductoSeeder as GlobalProductoSeeder;
 use TipoRolSeeder as GlobalTipoRolSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,6 +22,7 @@ class DatabaseSeeder extends Seeder
                 $this->call(MarcaSeeder::class);
                 $this->call(RolSeeder::class);
                 $this->call(EmpresaSeeder::class);
+                $this->call(GlobalProductoSeeder::class);
                 $this->call(GlobalTipoRolSeeder::class);
         }
 }

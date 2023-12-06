@@ -32,6 +32,9 @@ Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
 
     //Trabajador
     Route::post('trabajador/create','TrabajadorController@create');
+    Route::put('trabajador/update/{id_trabajador}','TrabajadorController@update');
+    Route::delete('trabajador/delete/{id_trabajador}','TrabajadorController@delete');
+    Route::get('trabajador/get','TrabajadorController@get');
 
     //Persona
     Route::get('persona/show','PersonaController@getShow');
@@ -46,7 +49,7 @@ Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
     Route::put('producto/update/{id}', 'ProductoController@update');
     Route::delete('producto/delete/{id}', 'ProductoController@delete');
     Route::get('producto/show', 'ProductoController@show');
-    Route::delete('producto/destroy/{id}', 'ProductoController@destroy');
+    //Route::delete('producto/destroy/{id}', 'ProductoController@destroy');
     //Salida de Producto
     Route::post('producto/exportacion', 'ProductoController@export');
 

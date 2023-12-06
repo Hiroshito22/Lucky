@@ -47,5 +47,53 @@ class TrabajadorController extends Controller
         }
     }
 
-    
+    public function update(Request $request,$id_trabajador){
+        DB::beginTransaction();
+        try {
+            $datos = User::with('persona')->where('id', auth()->user()->id)->first();
+            $persona = Trabajador::where('id', $id_trabajador)->first();
+            $persona->fill([
+                'direccion_legal' => $request->direccion_legal,
+                'rol_id' => $request->rol_id,
+                'empresa_id'=>$request->empresa_id,
+            ])
+            ->save();
+        DB::commit();
+        return response()->json(["resp" => "Personal actualizado correctamente"], 200);
+    }
+        catch (Exception $e) {
+            DB::rollback();
+            return response()->json(["error" => "error " . $e], 500);
+        }
+    }
+
+    public function delete($id_trabajador){
+        DB::beginTransaction();
+        try {
+            $datos = User::with('persona')->where('id', auth()->user()->id)->first();
+            $persona = Trabajador::find($id_trabajador);
+            $persona->fill([
+                "estado_registro" => "I",
+            ])->save();
+        DB::commit();
+        return response()->json(["resp" => "Personal eliminada correctamente"], 200);
+    }
+        catch (Exception $e) {
+            DB::rollback();
+            return response()->json(["error" => "error " . $e], 500);
+        }
+    }
+
+    public function get()
+    {
+        try {
+            $usuario = User::with('persona')->where('id', auth()->user()->id)->first();
+
+            $trabajador = Trabajador::where('estado_registro', 'A')->get();
+
+            return response()->json(["data" => $trabajador, "size" => (count($trabajador))], 200);
+        } catch (Exception $e) {
+            return response()->json(["resp" => "error", "error" => "Error al llamar a los trabajadores  " . $e], 400);
+        }
+    }
 }

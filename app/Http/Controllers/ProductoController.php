@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Persona;
+use App\Models\Producto;
 use App\Models\Trabajador;
 use App\User;
 use Exception;
@@ -15,8 +16,18 @@ class ProductoController extends Controller
         DB::beginTransaction();
         try{
             $usuario = User::with('persona')->where('id', auth()->user()->id)->first();
-            $perosna = Persona::where();
-            $trabajador = Trabajador::where('rol_id', 2)->where("persona_id",)->first();
-        }catch(Exception $e){}
+            $producto = Producto::create([
+                "descripcion" => $request->descripcion,
+                "empresa_id" => $request->empresa_id,
+                "marca_id" => $request->marca_id,
+                "foto" => $request->foto,
+                "cantidad" => $request->cantidad
+            ]);
+            DB::commit();
+            return response()->json(["resp" => "Producto creado correctamente"], 200);
+        }catch(Exception $e){
+            DB::rollback();
+            return response()->json(["error" => "error " . $e], 500);
+        }
     }
 }

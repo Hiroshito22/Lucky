@@ -5,21 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Producto extends Model
+class AlmacenProducto extends Model
 {
     use HasFactory;
-    protected $table = 'producto';
+    protected $table = 'almacen_producto';
     protected $fillable = array(
-                            'descripcion',
-                            'foto',
-                            'cantidad',
-                            'estado_registro',
+                            'fecha_entrada',
+                            'fecha_salida',
+                            'producto_id',
+                            'almacen_id',
                         );
     protected $primaryKey = 'id';
     protected $hidden = [
         'created_at', 'updated_at','deleted_at'
     ];
-    public function producto_detalle(){
-        return $this->hasMany(Producto::class);
-    }
 }

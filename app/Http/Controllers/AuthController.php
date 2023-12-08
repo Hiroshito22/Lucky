@@ -14,12 +14,18 @@ use Tymon\JWTAuth\Facades\JWTAuth as FacadesJWTAuth;
 
 class AuthController extends Controller
 {
+    /*public function mostrar_login()
+    {
+        return view('auth.mostrar_login');
+    }*/
     public function authenticate(Request $request)
     {
         //return response()->json($request);
+        /*$username = $request->input('username');
+        $password = $request->input('password');*/
         $credentials = $request->only('username', 'password');
-        $username = User::where('username', $request->username)->first();
-        if (!$username) return response()->json(["error" => "El nombre de usuario no existe"], 400);
+        $usernameu = User::where('username', $request->username)->first();
+        if (!$usernameu) return response()->json(["error" => "El nombre de usuario no existe"], 400);
         $user = User::with('persona')->where('username', $request->username)->where('estado_registro', 'A')->first();
 
         if (!$user) return response()->json(['error' => 'Usuario bloqueado'], 402);
@@ -40,7 +46,9 @@ class AuthController extends Controller
         );
         $response['token'] = $token;
         return response()->json($response);
+        //return view("logeo");
     }
+    
 
 
     public function getAuthenticatedUser()

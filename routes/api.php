@@ -23,6 +23,8 @@ use App\Models\Rol;
 Route::group(['middleware' => ['cors']], function () {
 
     Route::post('login', 'AuthController@authenticate');
+    
+
     Route::post('user/create', 'UserController@create');
 });
 Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
@@ -39,7 +41,6 @@ Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
     //Persona
     Route::get('persona/show','PersonaController@getShow');
     Route::get('persona/get','PersonaController@get');
-    //Route::get('persona/find/{num_documento}','PersonaController@findbydni');
     Route::post('persona/store','PersonaController@store');
     Route::post('persona/update/{id}','PersonaController@update');
     Route::delete('persona/delete/{id}','PersonaController@delete');
@@ -49,9 +50,8 @@ Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
     Route::put('producto/update/{id}', 'ProductoController@update');
     Route::delete('producto/delete/{id}', 'ProductoController@delete');
     Route::get('producto/show', 'ProductoController@show');
-    //Route::delete('producto/destroy/{id}', 'ProductoController@destroy');
     //Salida de Producto
-    Route::post('producto/exportacion', 'ProductoController@export');
+    Route::post('producto/exportacion', 'ProductoController@salida_productos');
 
 });
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {

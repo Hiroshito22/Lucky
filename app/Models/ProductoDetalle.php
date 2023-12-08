@@ -10,9 +10,7 @@ class ProductoDetalle extends Model
     use HasFactory;
     protected $table = 'producto_detalle';
     protected $fillable = array(
-                            'fecha',
                             'codigo',
-                            'cantidad',
                             'producto_id',
                             'marca_id',
                             'empresa_id',

@@ -16,22 +16,16 @@ class ProductoSeeder extends Seeder
     {
         Producto::updateOrCreate([
             "descripcion" => "ventilador 1",
-            "marca_id" => 1,
-            "empresa_id" => 1,
             "foto" => null,
             "cantidad" => 20,
         ]);
         Producto::updateOrCreate([
             "descripcion" => "ventilador 2",
-            "marca_id" => 1,
-            "empresa_id" => 1,
             "foto" => null,
             "cantidad" => 20,
         ]);
         Producto::updateOrCreate([
             "descripcion" => "ventilador 3",
-            "marca_id" => 2,
-            "empresa_id" => 1,
             "foto" => null,
             "cantidad" => 20,
         ]);

@@ -33,29 +33,10 @@ class UserController extends Controller
                     "username"=>$persona->numero_documento,
                 ],
                 [
-                    "password"=>$persona->numero_documento,
+                    "password"=>$request->password,
                 ]
             );
         DB::commit();
-        /*$request->validate([
-            'nombres' => 'required|string',
-            'apellido_paterno' => 'required|string',
-            'apellido_materno' => 'required|string',
-            'usuario' => 'required|string|unique:usuarios', // Asegúrate de que el nombre de la tabla sea correcto
-            'celular' => 'required|string',
-            'correo' => 'required|email|unique:usuarios', // Asegúrate de que el nombre de la tabla sea correcto
-            'password' => 'required|string',
-        ]);*/
-        //$usuario = new User;
-        /*$persona->nombres = $request->input('nombres');
-        $persona->apellido_paterno = $request->input('apellido_paterno');
-        $persona->apellido_materno = $request->input('apellido_materno');
-        $usuario->usuario = $request->input('numero_documento');
-        $persona->celular = $request->input('celular');
-        $persona->correo = $request->input('correo');
-        $usuario->password = bcrypt($request->input('password')); // Asegúrate de usar bcrypt para almacenar contraseñas de manera segura
-        $usuario->save();
-        $persona->save();*/
         return redirect()->route('login')->with('success', 'Usuario creado exitosamente');
         //return response()->json(["resp" => "Usuario creado correctamente"], 200);
     }

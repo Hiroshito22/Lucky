@@ -170,16 +170,19 @@
 						<div class="form-group">
 							<div class="custom-control custom-checkbox">
 								<input type="checkbox" class="custom-control-input" id="customControlInline">
-								<label class="custom-control-label" for="customControlInline">Remember me</label>
+								<label class="custom-control-label" for="customControlInline">Recordar</label>
 							</div>
 						</div>
 						<div class="d-flex justify-content-center mt-3 login_container">
 							<button type="submit" class="btn login_btn" onclick="submitForm()">Login</button>
 						</div>
 					</form>
+					<script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+					<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+					<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 					<script>
 						function submitForm() {
-							document.getElementById('loginForm').action = "{{ route('menu') }}";
+							document.getElementById('loginForm').action = "{{ route('mostrar_menu', ['id']) }}";
 							document.getElementById('loginForm').submit();
 						}
 					</script>

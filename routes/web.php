@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ReportePDFController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -29,12 +30,27 @@ Route::get('/crear_usuario', [LoginController::class, 'mostrar_usuario'])->name(
 Route::post('/crear_usuario', [UserController::class, 'create']);
 
 
-Route::get('/menu', [LoginController::class, 'mostrar_menu'])->name('menu');
+Route::get('/menu/{id}', [LoginController::class, 'mostrar_menu'])->name('mostrar_menu');
+Route::get('/generar_pdf_entrada', [ReportePDFController::class, 'reporte_equipos_entrada'])->name('generar_pdf_entrada');
+Route::get('/generar_pdf_salida', [ReportePDFController::class, 'reporte_equipos_salida'])->name('generar_pdf_salida');
+Route::get('/generar_pdf_stock', [ReportePDFController::class, 'reporte_equipos_stock'])->name('generar_pdf_stock');
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::group(['middleware' => ['cors']], function () {
 });
 Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
-
+/*
     // Actualizar contraseña
     Route::put('password/update', 'AuthController@updatePassword');
 
@@ -65,5 +81,5 @@ Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
     Route::get('/producto/reporte/entrada', 'ReportePDFController@reporte_equipos_entrada');
     Route::get('/producto/reporte/stock', 'ReportePDFController@reporte_equipos_stock');
     Route::get('/producto/reporte/salida', 'ReportePDFController@reporte_equipos_salida');
-
+*/
 });

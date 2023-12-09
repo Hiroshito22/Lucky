@@ -8,6 +8,9 @@
   <title>Menu Principal</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <link rel="stylesheet" href="./css/main.css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -16,12 +19,23 @@
       font-family: sans-serif;
     }
 
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('https://st2.depositphotos.com/1703414/45756/i/450/depositphotos_457562738-stock-photo-air-conditioner-compressor-unit.jpg') no-repeat center center fixed;
+      /* Propiedades para hacer que la imagen de fondo cubra toda la pantalla */
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 2rem;
-      background-color: #ececec;
+      background-color: #A7A7A7;
     }
 
     .logo {
@@ -93,27 +107,150 @@
         color: #ecececec;
       }
     }
+
+    #contenedor {
+      width: 300px;
+      height: 160px;
+      border-top: 4px dashed #A7A7A7;
+      border-right: 5px solid #A7A7A7;
+      border-bottom: 4px double #A7A7A7;
+      border-left: 5px dotted #A7A7A7;
+      /* border: 2px solid #A7A7A7; */
+      overflow: auto;
+      /* Habilita la barra de desplazamiento cuando sea necesario */
+      background-size: cover;
+      background-color: #AC0000;
+      color: #ececec;
+
+    }
+
+    .nav-item::after {
+      content: '';
+      display: block;
+      width: 0px;
+      height: 4px;
+      background: #ff0000;
+      transition: 0.2s;
+      margin-top: -10px;
+    }
+
+    .nav-item:hover::after {
+      width: 100%;
+    }
+
+
+    .nav-link {
+      padding: 15px 5px;
+      transition: 0.2s;
+    }
+
+    .navbar-nav .nav-link {
+
+      color: #000;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .navbar-nav .active>.nav-link {
+
+      width: 100%;
+      height: 51px;
+
+      border-bottom: .25rem solid transparent;
+      border-bottom-color: #ed4137;
+
+    }
   </style>
 </head>
 
 <body>
-
+  @csrf
   <header>
     <img class="logo" src="https://i1.wp.com/seindelperu.com/wp-content/uploads/2019/01/cropped-SEINDEL-PERU-01-crop.png?fit=1574%2C369&ssl=1" alt="Logo">
     <button id="abrir" class="abrir-menu"><i class="bi bi-list"></i></button>
-    <nav class="nav" id="nav">
-      <button class="cerrar-menu" id="cerrar"><i class="bi bi-x"></i></button>
-      <ul class="nav-list">
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Quiénes somos</a></li>
-        <li><a href="#">Servicios</a></li>
-        <li><a href="#">Qué hacemos</a></li>
-        <li><a href="#">Contacto</a></li>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <ul class="navbar-nav">
+        <li class="active">
+          <a href="#" class="nav-link">Inicio</a>
+        </li>
+        <li class="nav-item dropdown"> <!-- Agrega la clase dropdown al elemento principal -->
+          <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Trabajadores
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Asignar Rol</a></li>
+            <li><a class="dropdown-item" href="#">Cambiar Rol</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Buscar Trabajador</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown"> <!-- Agrega la clase dropdown al elemento principal -->
+          <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Productos y Equipos
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Registrar Producto</a></li>
+            <li><a class="dropdown-item" href="#">Buscar Producto</a></li>
+            <li><a class="dropdown-item" href="#">Actualizar Producto</a></li>
+            <li><a class="dropdown-item" href="#">Eliminar Producto</a></li>
+            <li><a class="dropdown-item" href="#">Asignar Producto</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Almacen</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown"> <!-- Agrega la clase dropdown al elemento principal -->
+          <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Reportes
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ route('generar_pdf_entrada') }}">Reportes de Entrada</a></li>
+            <li><a class="dropdown-item" href="{{ route('generar_pdf_salida') }}">Reportes de Salida</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="{{ route('generar_pdf_stock') }}">Consulta de Stock de Productos</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="{{route('login')}}" class="nav-link">Cerrar Sesión</a>
+        </li>
       </ul>
     </nav>
   </header>
 
   <script src="./js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <div id="contenedor">
+    <!-- Contenido que puede necesitar desplazamiento -->
+    <br>
+    <h5 style="text-align: center;">Datos Personales:</h5>
+    <p style="padding-left: 10px;">Nombre: {{$nombres}}</p>
+    <p style="padding-left: 10px;">Apellidos: {{$apellido_paterno}} {{$apellido_materno}}</p>
+    <!-- Más contenido aquí -->
+  </div>
+  <div id="contenedor">
+    <!-- Contenido que puede necesitar desplazamiento -->
+    <br>
+    <h5 style="text-align: center;">Tu Usuario y DNI: </h5>
+    <p style="padding-left: 10px;">Usuario: {{$username}}</p>
+    <p style="padding-left: 10px;">DNI: {{$username}}</p>
+    <!-- Más contenido aquí -->
+  </div>
+  <div id="contenedor">
+    <!-- Contenido que puede necesitar desplazamiento -->
+    <br>
+    <h5 style="text-align: center;">Tu Celular y Correo: </h5>
+    <p style="padding-left: 10px;">Celular: {{$celular}}</p>
+    <p style="padding-left: 10px;">Correo: {{$correo}}</p>
+    <!-- Más contenido aquí -->
+  </div>
+
 </body>
 
 </html>

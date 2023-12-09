@@ -36,7 +36,7 @@ class ReportePDFController extends Controller
         }
 
         $pdf = Pdf::loadView('entrada_equipos', compact('datos'));
-        return $pdf->stream('entrada_equipos');
+        return $pdf->stream('entrada_equipos.pdf');
     }
     public function reporte_equipos_stock()
     {

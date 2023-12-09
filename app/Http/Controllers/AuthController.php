@@ -25,10 +25,10 @@ class AuthController extends Controller
         $password = $request->input('password');*/
         $credentials = $request->only('username', 'password');
         $usernameu = User::where('username', $request->username)->first();
-        if (!$usernameu) return response()->json(["error" => "El nombre de usuario no existe"], 400);
+        if (!$usernameu) return redirect()->route('login');/*return response()->json(["error" => "El nombre de usuario no existe"], 400);*/
         $user = User::with('persona')->where('username', $request->username)->where('estado_registro', 'A')->first();
 
-        if (!$user) return response()->json(['error' => 'Usuario bloqueado'], 402);
+        if (!$user) return redirect()->route('login');/*return response()->json(['error' => 'Usuario bloqueado'], 402);*/
 
         try {
             $this->cambiarDuracionToken();
@@ -40,6 +40,7 @@ class AuthController extends Controller
             //return response()->json(['error' => 'could_not_create_token'], 500);
             return redirect()->route('login')->with('error', 'could_not_create_token');
         }
+        //session(['username' => $username]);
         $response = array(
             "id" => $user->id,
             "persona_id" => $user->persona_id,
@@ -47,7 +48,7 @@ class AuthController extends Controller
             "persona" => $user->persona,
         );
         $response['token'] = $token;
-        return redirect()->intended('/menu');
+        return redirect()->intended("/menu/{$user->id}");
         //return response()->json($response);
         //return view("logeo");
     }

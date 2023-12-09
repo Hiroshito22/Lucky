@@ -19,32 +19,30 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
-Route::get('/login', [AuthController::class, 'mostrar_login'])->name('login');
-Route::post('/login', [AuthController::class, 'authenticate']);
+//Route::get('/login', [LoginController::class, 'mostrar_login'])->name('/login');
+//Route::get('/menu_principal', [LoginController::class, 'mostrar_menu'])->name('/menu');
+Route::get('/login', function () {
+    return view('mostrar_login');
+});
+Route::get('/menu_principal', function () {
+    return view('mostrar_menu');
+});
 //Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 /*Route::middleware(['auth'])->group(function () {
     Route::get('/logeo', function(){
         return view('logeo');
     });
 });*/
-
-
-
-
-//Route::get('/loginn', "LoginController@showLoginForm")->name('login');
-//Route::post('/loginn', "LoginController@login");
-/*Route::get('/login/entrar', [AuthController::class, 'mostrar_login']);
-Route::post('/login', 'AuthController@authenticate');*/
 Route::group(['middleware' => ['cors']], function () {
 
     //Route::get('login/entrar', 'AuthController@mostrar_login');
     
-    Route::post('login', 'AuthController@authenticate');
+    //Route::post('/login', 'AuthController@authenticate');
 
     //Route::get('loginn', [LoginController::class, 'showLoginForm'])->name('login');
     //Route::post('loginn', [LoginController::class, 'login']);
 
-    Route::post('user/create', 'UserController@create');
+    //Route::post('user/create', 'UserController@create');
 });
 Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
 
@@ -60,7 +58,6 @@ Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
     //Persona
     Route::get('persona/show','PersonaController@getShow');
     Route::get('persona/get','PersonaController@get');
-    //Route::get('persona/find/{num_documento}','PersonaController@findbydni');
     Route::post('persona/store','PersonaController@store');
     Route::post('persona/update/{id}','PersonaController@update');
     Route::delete('persona/delete/{id}','PersonaController@delete');
@@ -69,9 +66,15 @@ Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
     Route::post('producto/create', 'ProductoController@create');
     Route::put('producto/update/{id}', 'ProductoController@update');
     Route::delete('producto/delete/{id}', 'ProductoController@delete');
-    Route::get('producto/show', 'ProductoController@show');
-    //Route::delete('producto/destroy/{id}', 'ProductoController@destroy');
-    //Salida de Producto
-    Route::post('producto/exportacion', 'ProductoController@export');
+    Route::get('producto/get', 'ProductoController@get');
+    Route::post('producto/asignar/{id_producto}', 'ProductoController@asignar_almacen');
+    //Salida y Entrada de Productos
+    Route::post('producto/exportacion/{id_producto}', 'ProductoController@salida_productos');
+    Route::post('producto/importar/{id_producto}', 'ProductoController@entrada_productos');
+
+    //Reportes PDF's
+    Route::get('/producto/reporte/entrada', 'ReportePDFController@reporte_equipos_entrada');
+    Route::get('/producto/reporte/stock', 'ReportePDFController@reporte_equipos_stock');
+    Route::get('/producto/reporte/salida', 'ReportePDFController@reporte_equipos_salida');
 
 });

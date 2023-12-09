@@ -8,24 +8,18 @@ use Illuminate\Support\Facades\Auth as Auth;
 
 class LoginController extends Controller
 {
-    public function showLoginForm()
+    /*public function mostrar_login(Request $request)
     {
-        return view('auth.login');
+        return view('mostrar_login');
     }
-
-    // Procesar el inicio de sesión
-    public function login(Request $request)
+    public function mostrar_menu(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            // El usuario ha iniciado sesión correctamente
-            return redirect()->intended('/dashboard');
-        }
-
-        // El inicio de sesión falló, redirigir de nuevo al formulario de inicio de sesión con un mensaje de error
-        return redirect()->back()->withInput($request->only('email'))->withErrors([
-            'email' => 'Credenciales incorrectas',
-        ]);
+        return view('mostrar_menu');
+    }*/
+    public function traer_user_pass(Request $request)
+    {
+        $username = $request->input('username');
+        $password = $request->input('password');
+        return response()->json($username);
     }
 }

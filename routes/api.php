@@ -23,9 +23,8 @@ use App\Models\Rol;
 Route::group(['middleware' => ['cors']], function () {
 
     Route::post('login', 'AuthController@authenticate');
-    
-
     Route::post('user/create', 'UserController@create');
+    Route::get('user/traer', 'LoginController@traer_user_pass');
 });
 Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
 

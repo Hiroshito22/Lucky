@@ -18,6 +18,9 @@
         .body{
             color: blue;
         }
+		.titulo{
+			text-align: right;
+		}
     </style>
 </head>
 <!--Coded with love by Mutiullah Samim-->
@@ -28,6 +31,7 @@
 	<div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
+			<h1 class="titulo">Suministros e Inversiones Del Perú E. I. R. L</h1>
 				<div class="d-flex justify-content-center">
 					<div class="brand_logo_container", size="10px">
 						<img class="img" src="https://3lperu.com/wp-content/uploads/2021/10/carga-de-gas-para-split-aire-acondicionado-D_NQ_NP_916847-MLA26619046313_012018-F.jpeg" alt="Logo">
@@ -35,6 +39,7 @@
 				</div>
 				<div class="d-flex justify-content-center form_container">
 					<form>
+					@csrf
 						<div class="input-group mb-3">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -54,7 +59,7 @@
 							</div>
 						</div>
 							<div class="d-flex justify-content-center mt-3 login_container">
-				 	<button type="button" name="boton_login" class="btn login_btn">Login</button>
+				 	<button type="submit" name="boton_login" class="btn login_btn">Login</button>
 				   </div>
 					</form>
 				</div>

@@ -8,18 +8,16 @@ use Illuminate\Support\Facades\Auth as Auth;
 
 class LoginController extends Controller
 {
-    /*public function mostrar_login(Request $request)
+    public function mostrar_login()
     {
         return view('mostrar_login');
     }
-    public function mostrar_menu(Request $request)
+    public function mostrar_menu()
     {
-        return view('mostrar_menu');
-    }*/
-    public function traer_user_pass(Request $request)
+        return view('menu_principal');
+    }
+    public function mostrar_usuario()
     {
-        $username = $request->input('username');
-        $password = $request->input('password');
-        return response()->json($username);
+        return view('crear_login');
     }
 }

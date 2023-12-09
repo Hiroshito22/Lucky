@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,33 +20,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
-//Route::get('/login', [LoginController::class, 'mostrar_login'])->name('/login');
-//Route::get('/menu_principal', [LoginController::class, 'mostrar_menu'])->name('/menu');
-Route::get('/login', function () {
+Route::get('/login', [LoginController::class, 'mostrar_login'])->name('login');
+Route::post('/login', [AuthController::class, 'authenticate']);
+/*Route::get('/login', function () {
     return view('mostrar_login');
-});
-Route::get('/menu', function () {
-    return view('menu_principal');
-});
-Route::get('/crear_usuario', function () {
-    return view('crear_login');
-});
-//Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-/*Route::middleware(['auth'])->group(function () {
-    Route::get('/logeo', function(){
-        return view('logeo');
-    });
 });*/
+Route::get('/crear_usuario', [LoginController::class, 'mostrar_usuario'])->name('usuario');
+Route::post('/crear_usuario', [UserController::class, 'create']);
+
+
+Route::get('/menu', [LoginController::class, 'mostrar_menu'])->name('menu');
+
 Route::group(['middleware' => ['cors']], function () {
-
-    //Route::get('login/entrar', 'AuthController@mostrar_login');
-    
-    //Route::post('/login', 'AuthController@authenticate');
-
-    //Route::get('loginn', [LoginController::class, 'showLoginForm'])->name('login');
-    //Route::post('loginn', [LoginController::class, 'login']);
-
-    //Route::post('user/create', 'UserController@create');
 });
 Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
 

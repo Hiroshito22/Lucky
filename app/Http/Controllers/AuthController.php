@@ -14,10 +14,10 @@ use Tymon\JWTAuth\Facades\JWTAuth as FacadesJWTAuth;
 
 class AuthController extends Controller
 {
-    /*public function mostrar_login()
+    public function login()
     {
-        return view('auth.mostrar_login');
-    }*/
+        return view('mostrar_login');
+    }
     public function authenticate(Request $request)
     {
         //return response()->json($request);
@@ -33,10 +33,12 @@ class AuthController extends Controller
         try {
             $this->cambiarDuracionToken();
             if (!$token = FacadesJWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 403);
+                //return response()->json(['error' => 'invalid_credentials'], 403);
+                return redirect()->route('login')->with('error', 'invalid_credentials');
             }
         } catch (JWTException $e) {
-            return response()->json(['error' => 'could_not_create_token'], 500);
+            //return response()->json(['error' => 'could_not_create_token'], 500);
+            return redirect()->route('login')->with('error', 'could_not_create_token');
         }
         $response = array(
             "id" => $user->id,
@@ -45,7 +47,8 @@ class AuthController extends Controller
             "persona" => $user->persona,
         );
         $response['token'] = $token;
-        return response()->json($response);
+        return redirect()->intended('/menu');
+        //return response()->json($response);
         //return view("logeo");
     }
     

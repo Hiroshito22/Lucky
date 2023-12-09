@@ -205,7 +205,8 @@
 		.dropdown:hover .dropdown-content {
 			display: block;
 		}
-		.titulo{
+
+		.titulo {
 			color: #ef4300;
 		}
 	</style>
@@ -219,27 +220,20 @@
 
 
 	<div class="page-container">
-
-		<form action="#" method="POST">
+		<form action="{{ route('usuario') }}" method="POST">
+		@csrf
 			<h1 class="titulo">Crear Usuario</h1>
-			<input type="text" name="name" class="Name" placeholder="Nombre">
-			<input type="text" name="ap_paterno" class="A_P" placeholder="Apellido Paterno">
-			<input type="text" name="ap_materno" class="A_M" placeholder="Apellido Materno">
-			<input type="text" name="usuario" class="User" placeholder="DNI">
-			<input type="text" name="tele" class="Tele" placeholder="Celular">
-			<input type="text" name="email" class="Email" placeholder="Email">
-			<!-- <select name="distrito" class="Distrito">
-				<option class="Distrito"value="distrito1">Distrito 1</option>
-				<option class="Distrito"value="distrito2">Distrito 2</option>
-				<option class="Distrito"value="distrito3">Distrito 3</option>
-			</select> -->
+			<input type="text" name="nombres" class="Name" placeholder="Nombre">
+			<input type="text" name="apellido_paterno" class="A_P" placeholder="Apellido Paterno">
+			<input type="text" name="apellido_materno" class="A_M" placeholder="Apellido Materno">
+			<input type="text" name="numero_documento" class="User" placeholder="DNI">
+			<input type="text" name="celular" class="Tele" placeholder="Celular">
+			<input type="text" name="correo" class="Email" placeholder="Email">
 			<input type="password" name="password" class="Address" placeholder="Password">
-			<button type="submit" value="Add" name="submit">Crear</button>
+			<button type="submit" name="submit">Crear</button>
 		</form>
 		<br>
 	</div>
-
-
 </body>
 
 </html>

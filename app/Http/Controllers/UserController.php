@@ -15,10 +15,11 @@ class UserController extends Controller
         try {
             $persona = Persona::firstOrCreate(
                 [
-                    "tipo_documento_id"=>1,
+                    
                     "numero_documento"=>$request->numero_documento,
                 ],
                 [
+                    "tipo_documento_id"=>1,
                     "nombres"=>$request->nombres,
                     "apellido_paterno"=>$request->apellido_paterno,
                     "apellido_materno"=>$request->apellido_materno,

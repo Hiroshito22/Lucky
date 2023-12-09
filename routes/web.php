@@ -24,8 +24,11 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('mostrar_login');
 });
-Route::get('/menu_principal', function () {
-    return view('mostrar_menu');
+Route::get('/menu', function () {
+    return view('menu_principal');
+});
+Route::get('/crear_usuario', function () {
+    return view('crear_login');
 });
 //Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 /*Route::middleware(['auth'])->group(function () {

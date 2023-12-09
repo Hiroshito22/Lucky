@@ -24,6 +24,7 @@ class CreatePersonaTable extends Migration
             $table->string('correo')->nullable();
             $table->foreignId('tipo_documento_id')->nullable()->references('id')->on('tipo_documento');
             $table->foreignId('distrito_id')->nullable()->references('id')->on('distritos');
+            $table->string('direccion')->nullable();
             $table->timestamps();
         });
     }

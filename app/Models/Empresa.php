@@ -12,7 +12,7 @@ class Empresa extends Model
     protected $fillable = array(
                             'numero_documento',
                             'razon_social',
-                            'logo',
+                            //'logo',
                             'distrito_id',
                             'direccion_legal'
                         );

@@ -16,6 +16,7 @@ class CreateTipoRolTable extends Migration
         Schema::create('tipo_rol', function (Blueprint $table) {
             $table->id();
             $table->foreignId('rol_id')->nullable()->references('id')->on('rol');
+            $table->string('descripcion')->nullable();
             $table->char('estado_registro')->default('A');
             $table->timestamps();
         });

@@ -11,6 +11,7 @@ class TipoRol extends Model
     protected $table = 'tipo_rol';
     protected $fillable = array(
                             'rol_id',
+                            'descripcion',
                             'estado_registro',
                         );
     protected $primaryKey = 'id';

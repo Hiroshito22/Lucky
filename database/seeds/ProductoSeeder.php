@@ -15,18 +15,21 @@ class ProductoSeeder extends Seeder
     public function run()
     {
         Producto::updateOrCreate([
+            "producto" => "vent 1",
             "descripcion" => "ventilador 1",
-            "foto" => null,
+            //"foto" => null,
             "cantidad" => 20,
         ]);
         Producto::updateOrCreate([
+            "producto" => "vent 2",
             "descripcion" => "ventilador 2",
-            "foto" => null,
+            //"foto" => null,
             "cantidad" => 20,
         ]);
         Producto::updateOrCreate([
+            "producto" => "vent 3",
             "descripcion" => "ventilador 3",
-            "foto" => null,
+            //"foto" => null,
             "cantidad" => 20,
         ]);
     }

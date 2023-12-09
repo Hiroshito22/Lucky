@@ -49,9 +49,16 @@ Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
     Route::post('producto/create', 'ProductoController@create');
     Route::put('producto/update/{id}', 'ProductoController@update');
     Route::delete('producto/delete/{id}', 'ProductoController@delete');
-    Route::get('producto/show', 'ProductoController@show');
-    //Salida de Producto
-    Route::post('producto/exportacion', 'ProductoController@salida_productos');
+    Route::get('producto/get', 'ProductoController@get');
+    Route::post('producto/asignar/{id_producto}', 'ProductoController@asignar_almacen');
+    //Salida y Entrada de Productos
+    Route::post('producto/exportacion/{id_producto}', 'ProductoController@salida_productos');
+    Route::post('producto/importar/{id_producto}', 'ProductoController@entrada_productos');
+
+    //Reportes PDF's
+    Route::get('producto/reporte/entrada', 'ReportePDFController@reporte_equipos_entrada');
+    Route::get('producto/reporte/stock', 'ReportePDFController@reporte_equipos_stock');
+    Route::get('producto/reporte/salida', 'ReportePDFController@reporte_equipos_salida');
 
 });
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {

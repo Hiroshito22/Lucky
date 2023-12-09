@@ -18,7 +18,7 @@ class EmpresaController extends Controller
             $empresa = Empresa::create([
                 "numero_documento" => $request->numero_documento,
                 "razon_social" => $request->razon_social,
-                "logo" => $request->logo,
+                //"logo" => $request->logo,
                 "distrito_id" => $request->distrito_id,
                 "direccion_legal" => $request->direccion_legal
             ]);

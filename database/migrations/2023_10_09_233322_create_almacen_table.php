@@ -16,7 +16,7 @@ class CreateAlmacenTable extends Migration
         Schema::create('almacen', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion')->nullable();
-            $table->foreignId('producto_id')->nullable()->references('id')->on('producto');
+            //$table->foreignId('producto_id')->nullable()->references('id')->on('producto');
             $table->foreignId('empresa_id')->nullable()->references('id')->on('empresa');
             $table->timestamps();
         });

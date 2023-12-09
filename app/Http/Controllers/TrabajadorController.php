@@ -30,10 +30,10 @@ class TrabajadorController extends Controller
                     'estado_registro' => 'A'
                 ]);
                 $personal = Trabajador::updateOrCreate([
-                    'direccion_legal' => $request->direccion_legal,
+                    //'direccion_legal' => $request->direccion_legal,
                     'persona_id' => $persona->id,
                 ], [
-                    'direccion_legal' => $request->direccion_legal,
+                    //'direccion_legal' => $request->direccion_legal,
                     'rol_id' => $request->rol_id,
                     'empresa_id'=>$request->empresa_id,
                     'estado_registro' => 'A'
@@ -53,7 +53,7 @@ class TrabajadorController extends Controller
             $datos = User::with('persona')->where('id', auth()->user()->id)->first();
             $persona = Trabajador::where('id', $id_trabajador)->first();
             $persona->fill([
-                'direccion_legal' => $request->direccion_legal,
+                //'direccion_legal' => $request->direccion_legal,
                 'rol_id' => $request->rol_id,
                 'empresa_id'=>$request->empresa_id,
             ])

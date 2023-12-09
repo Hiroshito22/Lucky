@@ -15,8 +15,9 @@ class CreateProductoTable extends Migration
     {
         Schema::create('producto', function (Blueprint $table) {
             $table->id();
+            $table->string('nom_producto')->nullable();
             $table->string('descripcion')->nullable();
-            $table->string('foto')->nullable();
+            //$table->string('foto')->nullable();
             $table->integer('cantidad')->nullable();
             $table->char('estado_registro')->default('A');
             $table->timestamps();

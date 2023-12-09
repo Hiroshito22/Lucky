@@ -17,7 +17,7 @@ class AlmacenController extends Controller
             $datos = User::with('persona')->where('id', auth()->user()->id)->first();
             $almacen = Almacen::create([
                 "descripcion" => $request->descripcion,
-                "producto_id" => $request->producto_id,
+                //"producto_id" => $request->producto_id,
                 "empresa_id" => $request->empresa_id
             ]);
             DB::commit();
@@ -36,7 +36,7 @@ class AlmacenController extends Controller
             $almacen = Almacen::find($id_almacen)->first();
             $almacen->fill([
                 "descripcion" => $request->descripcion,
-                "producto_id" => $request->producto_id,
+                //"producto_id" => $request->producto_id,
                 "empresa_id" => $request->empresa_id
             ])
             ->save();

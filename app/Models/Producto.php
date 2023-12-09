@@ -10,8 +10,9 @@ class Producto extends Model
     use HasFactory;
     protected $table = 'producto';
     protected $fillable = array(
+                            'nom_producto',
                             'descripcion',
-                            'foto',
+                            //'foto',
                             'cantidad',
                             'estado_registro',
                         );
@@ -20,6 +21,6 @@ class Producto extends Model
         'created_at', 'updated_at','deleted_at'
     ];
     public function producto_detalle(){
-        return $this->hasMany(Producto::class);
+        return $this->belongsTo(ProductoDetalle::class,'id');
     }
 }

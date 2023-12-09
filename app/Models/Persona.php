@@ -18,6 +18,7 @@ class Persona extends Model
                             'celular',
                             'correo',
                             'distrito_id',
+                            'direccion'
                         );
     protected $primaryKey = 'id';
     protected $hidden = [

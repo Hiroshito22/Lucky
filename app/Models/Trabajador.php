@@ -11,7 +11,7 @@ class Trabajador extends Model
     protected $table = 'trabajador';
     protected $fillable = array(
                             'persona_id',
-                            'direccion_legal',
+                            //'direccion_legal',
                             'rol_id',
                             'estado_registro',
                         );

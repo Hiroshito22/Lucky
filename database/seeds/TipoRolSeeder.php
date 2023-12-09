@@ -16,14 +16,17 @@ class TipoRolSeeder extends Seeder
     {
         TipoRol::updateOrCreate([
             "rol_id" => 1,
+            "descripcion" => null,
             "estado_registro" => "A",
         ]);
         TipoRol::updateOrCreate([
             "rol_id" => 2,
+            "descripcion" => null,
             "estado_registro" => "A",
         ]);
         TipoRol::updateOrCreate([
             "rol_id" => 3,
+            "descripcion" => null,
             "estado_registro" => "A",
         ]);
     }

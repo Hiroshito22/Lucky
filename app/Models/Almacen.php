@@ -11,7 +11,7 @@ class Almacen extends Model
     protected $table = 'almacen';
     protected $fillable = array(
                             'descripcion',
-                            'producto_id',
+                            //'producto_id',
                             'empresa_id',
                         );
     protected $primaryKey = 'id';

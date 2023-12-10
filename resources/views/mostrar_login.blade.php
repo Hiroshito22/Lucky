@@ -154,7 +154,7 @@
 					<form action="{{route('login')}}" method="POST">
 						@csrf
 						<br>
-						<h6 class="tituloo">SEINDEL PERU</h6>
+						<h5 class="tituloo" style="color: black;">SEINDEL PERU</h5>
 						<div class="input-group mb-3">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -170,7 +170,7 @@
 						<div class="form-group">
 							<div class="custom-control custom-checkbox">
 								<input type="checkbox" class="custom-control-input" id="customControlInline">
-								<label class="custom-control-label" for="customControlInline">Recordar</label>
+								<label class="custom-control-label" for="customControlInline" style="color: black;">Recordar</label>
 							</div>
 						</div>
 						<div class="d-flex justify-content-center mt-3 login_container">
@@ -189,7 +189,7 @@
 				</div>
 
 				<div class="mt-4">
-					<div class="d-flex justify-content-center links">
+					<div class="d-flex justify-content-center links" style="color: black;">
 						¿No tienes una cuenta? <a href="{{route('usuario')}}" class="ml-2">Registrate</a>
 					</div>
 				</div>

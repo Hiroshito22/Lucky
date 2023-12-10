@@ -221,7 +221,7 @@
 
 	<div class="page-container">
 		<form action="{{ route('usuario') }}" method="POST">
-		@csrf
+			@csrf
 			<h1 class="titulo">Crear Usuario</h1>
 			<input type="text" name="nombres" class="Name" placeholder="Nombre">
 			<input type="text" name="apellido_paterno" class="A_P" placeholder="Apellido Paterno">
@@ -231,9 +231,15 @@
 			<input type="text" name="correo" class="Email" placeholder="Email">
 			<input type="password" name="password" class="Address" placeholder="Password">
 			<button type="submit" name="submit">Crear</button>
+				<button type="button" class="btn btn-default" id="btnCancelar" style="background-color: #B92727;">Regresar</button>
 		</form>
 		<br>
 	</div>
+	<script>
+		document.getElementById('btnCancelar').addEventListener('click', function() {
+			window.history.back();
+		});
+	</script>
 </body>
 
 </html>

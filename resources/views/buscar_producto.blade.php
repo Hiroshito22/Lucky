@@ -126,16 +126,16 @@
                 </div> -->
             </div>
             <div class="col-sm-offset-2 col-sm-10">
-                            <button type="button" class="btn btn-default" id="btnCancelar" style="background-color: #B92727;">Salir</button>
-                        </div>
-                        <script>
-                            document.getElementById('btnCancelar').addEventListener('click', function() {
-                                window.history.back();
-                            });
-                        </script>
+                <button type="button" class="btn btn-default" id="btnCancelar" style="background-color: #B92727;">Salir</button>
+            </div>
+            <script>
+                document.getElementById('btnCancelar').addEventListener('click', function() {
+                    window.history.back();
+                });
+            </script>
         </div>
-        
+
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </div>
-    
+
 </div>

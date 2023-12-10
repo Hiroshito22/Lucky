@@ -75,24 +75,25 @@ class LoginController extends Controller
                 return redirect()->back()->with('error', 'Ya existe otro registro con el numero de documento.');
                 //return response()->json(["error" => "Ya existe otro registro con el numero de documento"], 500);
             }
+            $usuario = User::updateOrCreate([
+                'persona_id' => $persona->id,
+                'username' => $persona->numero_documento,
+            ], [
+                'password' => $persona->numero_documento,
+                'estado_registro' => 'A'
+            ]);
+            $personal = Trabajador::updateOrCreate([
+                'persona_id' => $persona->id,
+            ], [
+                'rol_id' =>  $request->input('rol_id'),
+                'empresa_id' => "1",
+                'estado_registro' => 'A'
+            ]);
+            return redirect()->back()->with('success', 'Datos guardados exitosamente.');
+            //return response()->json(["resp" => "Personal creado correctamente"], 200);
+        }else{
+            return redirect()->back()->with('error', 'No existe registro con el numero de documento.');
         }
-        $usuario = User::updateOrCreate([
-            'persona_id' => $persona->id,
-            'username' => $persona->numero_documento,
-        ], [
-            'password' => $persona->numero_documento,
-            'estado_registro' => 'A'
-        ]);
-        $personal = Trabajador::updateOrCreate([
-            'persona_id' => $persona->id,
-        ], [
-            'rol_id' =>  $request->input('rol_id'),
-            'empresa_id' => "1",
-            'estado_registro' => 'A'
-        ]);
-        return redirect()->back()->with('success', 'Datos guardados exitosamente.');
-        //return response()->json(["resp" => "Personal creado correctamente"], 200);
-
     }
     public function cambiar_rol($id)
     {

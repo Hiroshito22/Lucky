@@ -9,6 +9,7 @@ use App\Models\Producto;
 use App\Models\ProductoDetalle;
 use App\Models\Trabajador;
 use App\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -141,13 +142,15 @@ class ProductoController extends Controller
             $almacen_existe = Almacen::where('id', $request->almacen_id)->first();
             if ($almacen_existe) {
                 if ($producto_existe) {
-                    $producto = AlmacenProducto::updateOrCreate([
-                        "producto_id" => $id_producto,
-                    ],
-                    $request->all());
+                    $producto = AlmacenProducto::updateOrCreate(
+                        [
+                            "producto_id" => $id_producto,
+                        ],
+                        $request->all()
+                    );
                     DB::commit();
                     return response()->json(["resp" => "Producto asignado correctamente"], 200);
-                }else{
+                } else {
                     return response()->json(["resp" => "No existe producto"]);
                 }
             } else {
@@ -156,6 +159,84 @@ class ProductoController extends Controller
         } catch (Exception $e) {
             DB::rollback();
             return response()->json(["error" => "error " . $e], 500);
+        }
+    }
+    public function crear_varios_producto(Request $request)
+    {
+        // Obtén los productos del cuerpo de la solicitud
+        $productos = $request->productos;
+
+        // Inicia una transacción en la base de datos
+        DB::beginTransaction();
+
+        try {
+            // Itera sobre los productos
+            foreach ($productos as $productoData) {
+                // Crea un nuevo producto en la base de datos
+                $producto = Producto::create([
+                    "nom_producto" => $productoData['nom_producto'],
+                    "descripcion" => $productoData['descripcion'],
+                    "cantidad" => $productoData['cantidad']
+                ]);
+
+                // Crea un nuevo detalle de producto en la base de datos
+                $detalle = ProductoDetalle::create([
+                    "codigo" => $productoData['codigo'],
+                    "marca_id" => $productoData['marca_id'],
+                    "empresa_id" => 1,
+                    "producto_id" => $producto->id
+                ]);
+            }
+
+            // Confirma la transacción si todo se realizó correctamente
+            DB::commit();
+
+            // Devuelve una respuesta exitosa
+            return response()->json(["resp" => "Productos creados correctamente"], 200);
+        } catch (\Exception $e) {
+            // Revierte la transacción en caso de error
+            DB::rollback();
+
+            // Devuelve una respuesta de error
+            return response()->json(["resp" => "Error al crear productos"], 500);
+        }
+    }
+    public function asignar_productos_almacen(Request $request)
+    {
+        // Obtén los productos del cuerpo de la solicitud
+        $productos = $request->productos;
+
+        // Inicia una transacción en la base de datos
+        DB::beginTransaction();
+
+        try {
+            // Itera sobre los productos
+            foreach ($productos as $productoData) {
+                // Crea un nuevo producto en la base de datos
+                $producto = AlmacenProducto::updateOrCreate(
+                    [
+                        "producto_id" => $productoData['producto_id'],
+                    ],
+                    [
+                        "producto_id" => $productoData['producto_id'],
+                        "fecha_entrada" => Carbon::now(),
+                        "almacen_id" => 1
+                    ]
+
+                );
+            }
+
+            // Confirma la transacción si todo se realizó correctamente
+            DB::commit();
+
+            // Devuelve una respuesta exitosa
+            return response()->json(["resp" => "Productos asignados correctamente"], 200);
+        } catch (\Exception $e) {
+            // Revierte la transacción en caso de error
+            DB::rollback();
+
+            // Devuelve una respuesta de error
+            return response()->json(["resp" => "Error al crear productos ".$e], 500);
         }
     }
 }

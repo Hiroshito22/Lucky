@@ -35,11 +35,12 @@ class TrabajadorController extends Controller
                 ], [
                     //'direccion_legal' => $request->direccion_legal,
                     'rol_id' => $request->rol_id,
-                    'empresa_id'=>$request->empresa_id,
+                    'empresa_id'=> 1,
                     'estado_registro' => 'A'
                 ]);
         DB::commit();
-        return response()->json(["resp" => "Personal creado correctamente"], 200);
+        return redirect()->back()->with('success', 'Datos guardados exitosamente.');
+        //return response()->json(["resp" => "Personal creado correctamente"], 200);
     }
         catch (Exception $e) {
             DB::rollback();
@@ -55,7 +56,7 @@ class TrabajadorController extends Controller
             $persona->fill([
                 //'direccion_legal' => $request->direccion_legal,
                 'rol_id' => $request->rol_id,
-                'empresa_id'=>$request->empresa_id,
+                'empresa_id'=> 1,
             ])
             ->save();
         DB::commit();

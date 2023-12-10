@@ -12,7 +12,6 @@ class Producto extends Model
     protected $fillable = array(
                             'nom_producto',
                             'descripcion',
-                            //'foto',
                             'cantidad',
                             'estado_registro',
                         );

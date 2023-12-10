@@ -140,6 +140,7 @@
 </head>
 
 <body>
+@csrf
     <table style="width: 100%;" border="1" class="center-table">
         <tr>
             <td class="imgk"><img src="https://i1.wp.com/seindelperu.com/wp-content/uploads/2019/01/cropped-SEINDEL-PERU-01-crop.png?fit=1574%2C369&ssl=1" width="500" height="10%"></td>

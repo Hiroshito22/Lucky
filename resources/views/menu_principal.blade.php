@@ -178,12 +178,12 @@
             Trabajadores
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Asignar Rol</a></li>
-            <li><a class="dropdown-item" href="#">Cambiar Rol</a></li>
+            <li><a class="dropdown-item" href="{{route('asignar_rol')}}">Asignar Rol</a></li>
+            <li><a class="dropdown-item" href="{{route('cambiar_rol', ['id'=> $id])}}">Cambiar Rol</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#">Buscar Trabajador</a></li>
+            <li><a class="dropdown-item" href="{{route('buscar_trabajador')}}">Buscar Trabajador</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown"> <!-- Agrega la clase dropdown al elemento principal -->
@@ -191,15 +191,15 @@
             Productos y Equipos
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Registrar Producto</a></li>
-            <li><a class="dropdown-item" href="#">Buscar Producto</a></li>
-            <li><a class="dropdown-item" href="#">Actualizar Producto</a></li>
-            <li><a class="dropdown-item" href="#">Eliminar Producto</a></li>
-            <li><a class="dropdown-item" href="#">Asignar Producto</a></li>
-            <li>
+            <li><a class="dropdown-item" href="{{route('registrar_producto')}}">Registrar Productos</a></li>
+            <li><a class="dropdown-item" href="{{route('buscar_producto')}}">Ver Productos</a></li>
+            <li><a class="dropdown-item" href="{{route('actualizar_producto')}}">Actualizar un Producto</a></li>
+            <li><a class="dropdown-item" href="{{route('eliminar_producto')}}">Eliminar un Producto</a></li>
+            <li><a class="dropdown-item" href="{{route('asignar_producto')}}">Asignar Productos</a></li>
+            <!-- <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#">Almacen</a></li>
+            <li><a class="dropdown-item" href="{{route('almacen')}}">Almacen</a></li> -->
           </ul>
         </li>
         <li class="nav-item dropdown"> <!-- Agrega la clase dropdown al elemento principal -->

@@ -138,7 +138,7 @@
         }
     </style>
 </head>
-
+@csrf
 <body>
     <table style="width: 100%;" border="1" class="center-table">
         <tr>

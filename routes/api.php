@@ -50,6 +50,8 @@ Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
     Route::delete('producto/delete/{id}', 'ProductoController@delete');
     Route::get('producto/get', 'ProductoController@get');
     Route::post('producto/asignar/{id_producto}', 'ProductoController@asignar_almacen');
+    Route::post('producto/crear/varios/producto', 'ProductoController@crear_varios_producto');
+    Route::post('producto/asignar/varios/producto', 'ProductoController@asignar_productos_almacen');
     //Salida y Entrada de Productos
     Route::post('producto/exportacion/{id_producto}', 'ProductoController@salida_productos');
     Route::post('producto/importar/{id_producto}', 'ProductoController@entrada_productos');

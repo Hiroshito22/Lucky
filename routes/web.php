@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReportePDFController;
+use App\Http\Controllers\TrabajadorController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -36,10 +37,29 @@ Route::get('/generar_pdf_salida', [ReportePDFController::class, 'reporte_equipos
 Route::get('/generar_pdf_stock', [ReportePDFController::class, 'reporte_equipos_stock'])->name('generar_pdf_stock');
 
 
+Route::get('/asignar_rol', [LoginController::class, 'asignar_rol'])->name('asignar_rol');
+Route::post('/asignar_rol', [LoginController::class, 'crear_asignar_rol'])->name('rol_asignado');
+Route::get('/cambiar_rol/{id}', [LoginController::class, 'cambiar_rol'])->name('cambiar_rol');
+Route::post('/cambiar_rol/{id}', [LoginController::class, 'cambiar_rol_trabajador'])->name('cambiar_rol_trabajador');
+Route::get('/buscar_trabajador', [LoginController::class, 'buscar_trabajador'])->name('buscar_trabajador');
 
 
+Route::get('/almacen', [LoginController::class, 'almacen'])->name('almacen');
+
+Route::get('/registrar_producto', [LoginController::class, 'registrar_producto'])->name('registrar_producto');
+Route::post('/registrar_producto', [LoginController::class, 'crear_varios_producto']);
+
+Route::get('/buscar_producto', [LoginController::class, 'buscar_producto'])->name('buscar_producto');
+
+Route::get('/actualizar_producto', [LoginController::class, 'act_producto']);
+Route::post('/actualizar_producto', [LoginController::class, 'actualizar_producto'])->name('actualizar_producto');
+
+Route::get('/eliminar_producto', [LoginController::class, 'producto_eliminado']);
+Route::post('/eliminar_producto', [LoginController::class, 'eliminar_producto'])->name('eliminar_producto');
 
 
+Route::get('/asignar_producto', [LoginController::class, 'asignar_producto'])->name('asignar_producto');
+// Route::get('/almacen', [LoginController::class, 'almacen'])->name('almacen');
 
 
 

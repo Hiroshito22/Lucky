@@ -17,22 +17,26 @@
 </head>
 
 <body>
-@csrf
+    @csrf
     <div class="container" style="background-color: #A5FFEF;">
         <br>
         <h2 class="text-center" style="color: red;">REGISTRA TODOS LOS PRODUCTOS AL ALMACEN</h2>
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="button" class="btn btn-default" id="btnCancelar" style="background-color: #B92727;">Cancelar</button>
+        <div class="d-flex justify-content-center align-items-center" style="height: 10vh;">
+            <button type="button" class="btn btn-primary" id="btnCancelar" style="background-color: #B92727; color:aliceblue">Cancelar</button>
         </div>
+        <br>
         <form action="{{ route('asignar_producto') }}" method="post">
             @csrf
-            <button type="submit" class="btn btn-primary" style="width: 60%;">Guardar Producto</button>
+            <div class="d-flex justify-content-center align-items-center" style="height: 5vh;">
+                <button type="submit" class="btn btn-primary mx-auto d-block" style="width: 60%;" onclick="mostrarAlerta()">Guardar Producto</button>
+            </div>
+            <br><br>
             <div class="row" id="productos-container">
                 <aside class="col-sm-4">
                     <div class="card">
                         <article class="card-body">
                             <h4 class="card-title mb-4 mt-1">Asignar Producto</h4>
-                            
+
                             <div class="form-group">
                                 <label for="productos[0][id]">Escoge el Producto</label>
                                 <select class="form-control" name="productos[0][id]">
@@ -65,6 +69,7 @@
         <div class="col-sm-4">
             <button class="btn btn-primary" id="agregarProducto">Agregar otro producto</button>
         </div>
+        <br>
 
     </div>
 
@@ -91,6 +96,24 @@
         document.getElementById('btnCancelar').onclick = function() {
             window.history.back();
         };
+    </script>
+    <script>
+        function mostrarAlerta() {
+            // Personaliza el mensaje y tipo de alerta según tus necesidades
+            var mensaje = "¡Producto guardado correctamente!";
+            var tipoAlerta = "success"; // Puedes cambiar a "info", "warning" o "danger" según el caso
+
+            // Crea la alerta usando Bootstrap
+            var alerta = `<div class="alert alert-${tipoAlerta} alert-dismissible fade show" role="alert">
+                        ${mensaje}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>`;
+
+            // Agrega la alerta al final del cuerpo del documento
+            $('body').append(alerta);
+        }
     </script>
 
 </body>

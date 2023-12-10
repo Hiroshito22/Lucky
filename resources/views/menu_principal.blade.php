@@ -216,12 +216,24 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a href="{{route('login')}}" class="nav-link">Cerrar Sesión</a>
+          <a href="{{ route('login') }}" class="nav-link" onclick="event.preventDefault(); showLogoutConfirmation()">Cerrar Sesión</a>
         </li>
       </ul>
     </nav>
   </header>
+  <script>
+    function showLogoutConfirmation() {
+      var confirmLogout = confirm('¿Estás seguro de que deseas cerrar sesión?');
 
+      if (confirmLogout) {
+        // Si el usuario confirma, redirige al enlace de cierre de sesión
+        window.location.href = "{{ route('login') }}";
+      } else {
+        // Si el usuario cancela, puedes realizar alguna otra acción o simplemente no hacer nada
+        // Puedes agregar aquí un mensaje de cancelación si lo deseas
+      }
+    }
+  </script>
   <script src="./js/main.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

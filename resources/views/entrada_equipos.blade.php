@@ -7,7 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reporte de Equipos</title>
     <style>
-        * {
+        /* * {
+            font-family: Arial, Helvetica, sans-serif;
+        } */
+        @page {
+            margin: 50px 25px;
+            /* Establece los márgenes de la página */
+            counter-increment: page;
+            /* Incrementa el contador de páginas */
+            content: "Página " counter(page);
+            /* Muestra el número de página */
+        }
+
+        body {
             font-family: Arial, Helvetica, sans-serif;
         }
 
@@ -133,6 +145,7 @@
         .justi {
             text-align: justify;
         }
+
         .center-table1 {
             text-align: center;
         }
@@ -140,24 +153,34 @@
 </head>
 
 <body>
-@csrf
-    <table style="width: 100%;" border="1" class="center-table">
-        <tr>
-            <td class="imgk"><img src="https://i1.wp.com/seindelperu.com/wp-content/uploads/2019/01/cropped-SEINDEL-PERU-01-crop.png?fit=1574%2C369&ssl=1" width="500" height="10%"></td>
-            <td style="padding: 0px; margin: 0px;" rowspan="2">
-                <p class="subt1">Versión 01</p>
-                <p class="subt1">Página 1</p>
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 0px; margin: 0px;">
-                <p class="subt1">Suministros e Inversiones Del Perú E. I. R. L</p>
-            </td>
-        </tr>
-    </table>
+    @csrf
+    <div style="text-align: center; margin-bottom: 10px;">
+        <table style="width: 100%;" border="1" class="center-table">
+            <tr>
+                <td class="imgk"><img src="https://i1.wp.com/seindelperu.com/wp-content/uploads/2019/01/cropped-SEINDEL-PERU-01-crop.png?fit=1574%2C369&ssl=1" width="500" height="10%"></td>
+                <td style="padding: 0px; margin: 0px;" rowspan="2">
+                    <p class="subt1">Versión 01</p>
+                    <p class="subt1">Página 1</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 0px; margin: 0px;">
+                    <p class="subt1">Suministros e Inversiones Del Perú E. I. R. L</p>
+                </td>
+            </tr>
+        </table>
+    </div>
 
     <br>
+    <div style="text-align: right; margin-bottom: 10px;">
+        <p style="margin: 0;">Fecha del Reporte: {{ date('Y-m-d') }}</p>
+        <p style="margin: 0;">Hora del Reporte: {{ date('H:i:s') }}</p>
+    </div>
     <h3 style="text-align: center;">Reporte de Equipos y Productos de Entrada</h3>
+    <!-- <div style="text-align: right; margin-bottom: 10px;">
+        <p style="margin: 0;">Fecha del Reporte: {{ date('Y-m-d') }}</p>
+        <p style="margin: 0;">Hora del Reporte: {{ date('H:i:s') }}</p>
+    </div> -->
     @if(count($datos) > 0)
     <table border="1" class="center-table1">
         <thead>
@@ -185,6 +208,18 @@
     <p>No hay datos disponibles para mostrar en el informe.</p>
     @endif
     <br>
+    <script>
+        // Agrega este script para actualizar el número de página en cada página
+        window.onload = function() {
+            var pageCounter = 1;
+            var pageSpan = document.getElementById('page');
+            pageSpan.innerHTML = pageCounter;
+            window.onafterprint = function() {
+                pageCounter++;
+                pageSpan.innerHTML = pageCounter;
+            }
+        }
+    </script>
 </body>
 
 </html>

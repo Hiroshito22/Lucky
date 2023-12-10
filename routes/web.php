@@ -62,6 +62,8 @@ Route::get('/asignar_producto', [LoginController::class, 'asignar_producto'])->n
 
 Route::group(['middleware' => ['cors']], function () {
 });
+//Route::group(['middleware' => ['cors']], function () {
+//Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
 Route::middleware(['web'])->group(function () {
     // Rutas aquí
     Route::get('/registrar_producto', [LoginController::class, 'registrar_producto']);

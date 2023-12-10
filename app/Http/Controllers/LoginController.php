@@ -134,7 +134,6 @@ class LoginController extends Controller
             return view('buscar_trabajador', ['datos' => null]);
         }
     }
-
     public function buscar_producto()
     {
         $productos = Producto::with('producto_detalle.marca', 'producto_detalle.empresa')
@@ -232,17 +231,20 @@ class LoginController extends Controller
             return response()->json(["error" => "Error al eliminar el producto: " . $e->getMessage()], 500);
         }
     }
-    
     public function almacen()
     {
         return view('almacen');
     }
-
     public function registrar_producto()
     {
-        //$conjuntosDeDatos = obtenerDatosDeAlgunaManera();
-
-        //return view('registrar_producto', compact('conjuntosDeDatos'));
+        // if (auth()->check()) {
+        //     $datos = User::with('persona')->where('id', auth()->user()->id)->first();
+        //     return view('registrar_producto', compact('datos'));
+        // } else {
+        //     return redirect()->back()->with('error', 'No se puede.'); 
+        // }
+        // $datos = User::with('persona')->where('id', auth()->user()->id)->first();
+        // return view('registrar_producto',$datos);
         return view('registrar_producto');
     }
     public function crear_varios_producto(Request $request)

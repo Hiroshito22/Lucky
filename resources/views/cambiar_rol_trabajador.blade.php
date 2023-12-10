@@ -4,7 +4,7 @@
 <!------ Include the above in your HEAD tag ---------->
 <style>
     body {
-        background-color: #EF4343;
+        background-color: #C7C7C7;
         /* background: url('https://theliftco.eu/wp-content/uploads/2019/09/Empresa-de-aires-acondicionados-1.jpg') no-repeat center center fixed; */
     }
 
@@ -37,7 +37,8 @@
     }
 
     .col-md-9 {
-        background: url('https://theliftco.eu/wp-content/uploads/2019/09/Empresa-de-aires-acondicionados-1.jpg') no-repeat center center fixed;
+        background-color: #E6FFA5;
+        /* background: url('https://theliftco.eu/wp-content/uploads/2019/09/Empresa-de-aires-acondicionados-1.jpg') no-repeat center center fixed; */
         padding: 3%;
         border-top-right-radius: 0.5rem;
         border-bottom-right-radius: 0.5rem;
@@ -60,6 +61,7 @@
 </style>
 <form action="{{ route('cambiar_rol_trabajador', ['id' => $user->id]) }}" method="post">
     @csrf
+    <img style="width: 350px;" src="https://i1.wp.com/seindelperu.com/wp-content/uploads/2019/01/cropped-SEINDEL-PERU-01-crop.png?fit=1574%2C369&ssl=1" alt="Logo">
     <div class="container contact">
         <div class="row">
             <div class="col-md-3">

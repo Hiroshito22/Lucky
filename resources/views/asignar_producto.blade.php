@@ -17,7 +17,7 @@
 </head>
 
 <body>
-
+@csrf
     <div class="container" style="background-color: #A5FFEF;">
         <br>
         <h2 class="text-center" style="color: red;">REGISTRA TODOS LOS PRODUCTOS AL ALMACEN</h2>

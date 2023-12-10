@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AlmacenProducto;
 use App\Models\Persona;
 use App\Models\Producto;
 use App\Models\ProductoDetalle;
 use App\Models\Trabajador;
 use App\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 //use Auth;
@@ -142,20 +144,20 @@ class LoginController extends Controller
         $datos = [];
 
         foreach ($productos as $producto) {
-            $nom_producto = $producto->nom_producto;
-            $descripcion = $producto->descripcion;
-            $cantidad = $producto->cantidad;
-            $codigo = $producto->producto_detalle->codigo;
-            $marca = $producto->producto_detalle->marca->nombre;
-            $estado_registro = $producto->estado_registro;
+            $nom_producto = $producto->nom_producto ?? null;
+            $descripcion = $producto->descripcion ?? null;
+            $cantidad = $producto->cantidad ?? null;
+            $codigo = $producto->producto_detalle->codigo ?? null;
+            $marca = $producto->producto_detalle->marca->nombre ?? null;
+            $estado_registro = $producto->estado_registro ?? null;
 
             $datos[] = [
-                "nom_producto" => $nom_producto,
-                "descripcion" => $descripcion,
-                "cantidad" => $cantidad,
-                "codigo" => $codigo,
-                "marca" => $marca,
-                "estado_registro" => $estado_registro,
+                "nom_producto" => $nom_producto ?? null,
+                "descripcion" => $descripcion ?? null,
+                "cantidad" => $cantidad ?? null,
+                "codigo" => $codigo ?? null,
+                "marca" => $marca ?? null,
+                "estado_registro" => $estado_registro ?? null,
             ];
         }
         return view('buscar_producto', ['datos' => $datos]);
@@ -173,8 +175,8 @@ class LoginController extends Controller
 
         try {
 
-            $producto = Producto::findOrFail($request->input('nom_producto'))->where('estado_registro', 'A');
-            $detalle = ProductoDetalle::where('producto_id', $request->input('nom_producto'))->where('estado_registro', 'A')->first();
+            $producto = Producto::find($request->input('id'));
+            $detalle = ProductoDetalle::where('producto_id', $request->input('id'))->where('estado_registro', 'A')->first();
 
             if ($detalle) {
                 $producto->update([
@@ -191,7 +193,7 @@ class LoginController extends Controller
                 return redirect()->back()->with('success', 'Producto actualizado exitosamente.');
             } else {
                 // Manejar el caso donde $detalle es nulo
-                return response()->json(["error" => "Detalle no encontrado"], 404);
+                return redirect()->back()->with('error', 'No existe detalle.');
             }
         } catch (\Exception $e) {
             DB::rollback();
@@ -230,10 +232,7 @@ class LoginController extends Controller
             return response()->json(["error" => "Error al eliminar el producto: " . $e->getMessage()], 500);
         }
     }
-    public function asignar_producto()
-    {
-        return view('asignar_producto');
-    }
+    
     public function almacen()
     {
         return view('almacen');
@@ -248,7 +247,7 @@ class LoginController extends Controller
     }
     public function crear_varios_producto(Request $request)
     {
-        $productos = $request->productos;
+        $productos = $request->input('productos');
 
         if (!is_array($productos)) {
             return response()->json(["resp" => "La lista de productos no es válida"], 400);
@@ -283,6 +282,63 @@ class LoginController extends Controller
 
             // Redirigir a la vista después de crear los productos
             return redirect()->route('registrar_producto')->with('success', 'Productos creados correctamente');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(["resp" => "Error al crear productos: " . $e->getMessage()], 500);
+        }
+    }
+    public function asignar_producto()
+    {
+        return view('asignar_producto');
+    }
+    public function asignar_varios_producto(Request $request)
+    {
+        $productos = $request->input('productos');
+
+        if (!is_array($productos)) {
+            return response()->json(["resp" => "La lista de productos no es válida"], 400);
+        }
+
+        DB::beginTransaction();
+
+        try {
+            foreach ($productos as $productoData) {
+                // Verificar si $productoData es un array antes de intentar acceder a sus elementos
+                if (!is_array($productoData)) {
+                    // Manejar el caso donde $productoData no es un array
+                    DB::rollback();
+                    return response()->json(["resp" => "Error al asignar productos: Formato de datos incorrecto"], 400);
+                }
+
+                // $producto = Producto::create([
+                //     "nom_producto" => $productoData['nom_producto'],
+                //     "descripcion" => $productoData['descripcion'],
+                //     "cantidad" => $productoData['cantidad']
+                // ]);
+
+                // $detalle = ProductoDetalle::create([
+                //     "codigo" => $productoData['codigo'],
+                //     "marca_id" => $productoData['marca_id'],
+                //     "empresa_id" => 1,
+                //     "producto_id" => $producto->id
+                // ]);
+                $producto = AlmacenProducto::updateOrCreate(
+                    [
+                        "producto_id" => $productoData['id'],
+                    ],
+                    [
+                        "producto_id" => $productoData['id'],
+                        "fecha_entrada" => Carbon::now(),
+                        "almacen_id" => 1
+                    ]
+
+                );
+            }
+
+            DB::commit();
+
+            // Redirigir a la vista después de crear los productos
+            return redirect()->route('asignar_producto')->with('success', 'Productos asignados correctamente');
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(["resp" => "Error al crear productos: " . $e->getMessage()], 500);

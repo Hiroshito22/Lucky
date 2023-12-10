@@ -172,7 +172,7 @@
         <tbody>
             @foreach($datos as $detalle)
             <tr>
-                <td>{{ $detalle['nom_producto'] }}</td>
+                <td>{{ $detalle['nom_producto'] }} </td>
                 <td>{{ $detalle['descripcion'] }}</td>
                 <td>{{ $detalle['cantidad'] }}</td>
                 <td>{{ $detalle['codigo'] }}</td>

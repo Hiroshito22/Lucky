@@ -18,20 +18,20 @@ class ReportePDFController extends Controller
         $datos = [];
 
         foreach ($productos as $producto) {
-            $nom_producto = $producto->nom_producto;
-            $descripcion = $producto->descripcion;
-            $cantidad = $producto->cantidad;
-            $codigo = $producto->producto_detalle->codigo;
-            $marca = $producto->producto_detalle->marca->nombre;
-            $empresa = $producto->producto_detalle->empresa->razon_social;
+            $nom_producto = $producto->nom_producto ?? null;
+            $descripcion = $producto->descripcion ?? null;
+            $cantidad = $producto->cantidad ?? null;
+            $codigo = $producto->producto_detalle->codigo ?? null;
+            $marca = $producto->producto_detalle->marca->nombre ?? null;
+            $empresa = $producto->producto_detalle->empresa->razon_social ?? null;
 
             $datos[] = [
-                "nom_producto" => $nom_producto,
-                "descripcion" => $descripcion,
-                "cantidad" => $cantidad,
-                "codigo" => $codigo,
-                "marca" => $marca,
-                "empresa" => $empresa,
+                "nom_producto" => $nom_producto ?? null,
+                "descripcion" => $descripcion ?? null,
+                "cantidad" => $cantidad ?? null,
+                "codigo" => $codigo ?? null,
+                "marca" => $marca ?? null,
+                "empresa" => $empresa ?? null,
             ];
         }
 
@@ -47,18 +47,18 @@ class ReportePDFController extends Controller
         $datos = [];
 
         foreach ($productos as $producto) {
-            $nom_producto = $producto->nom_producto;
-            $descripcion = $producto->descripcion;
-            $cantidad = $producto->cantidad;
-            $codigo = $producto->producto_detalle->codigo;
-            $marca = $producto->producto_detalle->marca->nombre;
+            $nom_producto = $producto->nom_producto ?? null;
+            $descripcion = $producto->descripcion ?? null;
+            $cantidad = $producto->cantidad ?? null;
+            $codigo = $producto->producto_detalle->codigo ?? null;
+            $marca = $producto->producto_detalle->marca->nombre ?? null;
 
             $datos[] = [
-                "nom_producto" => $nom_producto,
-                "descripcion" => $descripcion,
-                "cantidad" => $cantidad,
-                "codigo" => $codigo,
-                "marca" => $marca,
+                "nom_producto" => $nom_producto ?? null,
+                "descripcion" => $descripcion ?? null,
+                "cantidad" => $cantidad ?? null,
+                "codigo" => $codigo ?? null,
+                "marca" => $marca ?? null,
             ];
         }
 
@@ -74,11 +74,11 @@ class ReportePDFController extends Controller
         $datos = [];
 
         foreach ($productos as $producto) {
-            $nom_producto = $producto->nom_producto;
-            $descripcion = $producto->descripcion;
-            $cantidad = $producto->cantidad;
-            $codigo = $producto->producto_detalle->codigo;
-            $marca = $producto->producto_detalle->marca->nombre;
+            $nom_producto = $producto->nom_producto ?? null;
+            $descripcion = $producto->descripcion ?? null;
+            $cantidad = $producto->cantidad ?? null;
+            $codigo = $producto->producto_detalle->codigo ?? null;
+            $marca = $producto->producto_detalle->marca->nombre ?? null;
 
             $datos[] = [
                 "nom_producto" => $nom_producto,

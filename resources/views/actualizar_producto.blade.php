@@ -77,31 +77,43 @@
             <div class="col-md-9">
                 <div class="contact-form">
                     <div class="form-group">
-                        <label class="control-label col-sm-6" for="nom_producto">Selecciona el Producto a Actualizar:</label>
+                        <label class="control-label col-sm-6" for="id">Selecciona el Producto a Actualizar:</label>
                         <div class="col-sm-10">
-                            <select class="form-control" id="nom_producto" name="nom_producto">
-                                <option value="">Ningun Producto</option>
-                                @foreach($productos as $producto)
-                                <option value="{{ $producto->id }}">{{ $producto->nom_producto }}</option>
-                                @endforeach
+                            <select class="form-control" id="id" name="id">
+                                <option value="">Selecciona un Producto</option>
+                                <?php
+                                $conexion = new mysqli("localhost", "root", "", "lucky");
+
+                                if ($conexion->connect_error) {
+                                    die("Conexión fallida: " . $conexion->connect_error);
+                                }
+
+                                $consulta = "SELECT id, nom_producto FROM producto WHERE estado_registro = 'A'";
+                                $resultado = $conexion->query($consulta);
+
+                                while ($fila = $resultado->fetch_assoc()) {
+                                    echo "<option value='{$fila['id']}'>{$fila['nom_producto']}</option>";
+                                }
+                                $conexion->close();
+                                ?>
                             </select>
                         </div>
                     </div>
                     <hr>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="numero_documento">Descripcion:</label>
+                        <label class="control-label col-sm-2" for="descripcion">Descripcion:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="descripcion" placeholder="Escribe una nueva descripcion" name="descripcion">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="numero_documento">Cantidad:</label>
+                        <label class="control-label col-sm-2" for="cantidad">Cantidad:</label>
                         <div class="col-sm-10">
                             <input type="number" class="form-control" id="cantidad" placeholder="0" name="cantidad">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="numero_documento">Código:</label>
+                        <label class="control-label col-sm-2" for="codigo">Código:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="codigo" placeholder="Escribe un nuevo codigo" name="codigo">
                         </div>

@@ -89,7 +89,7 @@
                                 die("Conexión fallida: " . $conexion->connect_error);
                             }
 
-                            $consulta = "SELECT id, nombre FROM rol";
+                            $consulta = "SELECT id, nombre FROM rol WHERE estado_registro = 'A'";
                             $resultado = $conexion->query($consulta);
 
                             while ($fila = $resultado->fetch_assoc()) {

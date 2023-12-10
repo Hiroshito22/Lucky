@@ -89,7 +89,7 @@
                                     die("Conexión fallida: " . $conexion->connect_error);
                                 }
 
-                                $consulta = "SELECT id, nom_producto FROM producto";
+                                $consulta = "SELECT id, nom_producto FROM producto WHERE estado_registro = 'A'";
                                 $resultado = $conexion->query($consulta);
 
                                 while ($fila = $resultado->fetch_assoc()) {

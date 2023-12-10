@@ -22,6 +22,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
+
 Route::get('/login', [LoginController::class, 'mostrar_login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate']);
 /*Route::get('/login', function () {
@@ -46,8 +47,7 @@ Route::get('/buscar_trabajador', [LoginController::class, 'buscar_trabajador'])-
 
 Route::get('/almacen', [LoginController::class, 'almacen'])->name('almacen');
 
-Route::get('/registrar_producto', [LoginController::class, 'registrar_producto'])->name('registrar_producto');
-Route::post('/registrar_producto', [LoginController::class, 'crear_varios_producto']);
+
 
 Route::get('/buscar_producto', [LoginController::class, 'buscar_producto'])->name('buscar_producto');
 
@@ -57,20 +57,22 @@ Route::post('/actualizar_producto', [LoginController::class, 'actualizar_product
 Route::get('/eliminar_producto', [LoginController::class, 'producto_eliminado']);
 Route::post('/eliminar_producto', [LoginController::class, 'eliminar_producto'])->name('eliminar_producto');
 
-
 Route::get('/asignar_producto', [LoginController::class, 'asignar_producto'])->name('asignar_producto');
 // Route::get('/almacen', [LoginController::class, 'almacen'])->name('almacen');
 
-
-
-
-
-
-
 Route::group(['middleware' => ['cors']], function () {
 });
+Route::middleware(['web'])->group(function () {
+    // Rutas aquí
+    Route::get('/registrar_producto', [LoginController::class, 'registrar_producto']);
+    Route::post('/registrar_producto', [LoginController::class, 'crear_varios_producto'])->name('registrar_producto');
+
+    Route::get('/asignar_producto', [LoginController::class, 'asignar_producto']);
+    Route::post('/asignar_producto', [LoginController::class, 'asignar_varios_producto'])->name('asignar_producto');
+});
 Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
-/*
+
+    /*
     // Actualizar contraseña
     Route::put('password/update', 'AuthController@updatePassword');
 

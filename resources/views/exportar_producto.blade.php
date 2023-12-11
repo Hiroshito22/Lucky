@@ -21,15 +21,15 @@
     <br><br>
     <div class="container" style="background-color: #A5FFEF;">
         <br>
-        <h2 class="text-center" style="color: red;">REGISTRA TODOS LOS PRODUCTOS AL ALMACEN</h2>
+        <h2 class="text-center" style="color: red;">EXPORTAR LOS PRODUCTOS AL ALMACEN</h2>
         <div class="d-flex justify-content-center align-items-center" style="height: 10vh;">
             <button type="button" class="btn btn-primary" id="btnCancelar" style="background-color: #B92727; color:aliceblue">Cancelar</button>
         </div>
         <br>
-        <form action="{{ route('asignar_producto') }}" method="post">
+        <form action="{{ route('exportar_producto') }}" method="post">
             @csrf
             <div class="d-flex justify-content-center align-items-center" style="height: 5vh;">
-                <button type="submit" class="btn btn-primary mx-auto d-block" style="width: 60%;" onclick="mostrarAlerta()">Guardar Producto</button>
+                <button type="submit" class="btn btn-primary mx-auto d-block" style="width: 60%;" onclick="mostrarAlerta()">Exportar Producto</button>
             </div>
             <br><br>
             <div class="row" id="productos-container">
@@ -58,6 +58,10 @@
                                     $conexion->close();
                                     ?>
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="productos[0][cantidad]">Cantidad del Producto para exportar</label>
+                                <input name="productos[0][cantidad]" class="form-control" placeholder="0" type="number">
                             </div>
                         </article>
                     </div>

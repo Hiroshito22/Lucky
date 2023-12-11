@@ -196,10 +196,10 @@
             <li><a class="dropdown-item" href="{{route('actualizar_producto')}}">Actualizar un Producto</a></li>
             <li><a class="dropdown-item" href="{{route('eliminar_producto')}}">Eliminar un Producto</a></li>
             <li><a class="dropdown-item" href="{{route('asignar_producto')}}">Asignar Productos</a></li>
-            <!-- <li>
+            <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="{{route('almacen')}}">Almacen</a></li> -->
+            <li><a class="dropdown-item" href="{{route('exportar_producto')}}">Exportar Productos</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown"> <!-- Agrega la clase dropdown al elemento principal -->

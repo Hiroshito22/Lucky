@@ -91,7 +91,7 @@ class LoginController extends Controller
             ]);
             return redirect()->back()->with('success', 'Datos guardados exitosamente.');
             //return response()->json(["resp" => "Personal creado correctamente"], 200);
-        }else{
+        } else {
             return redirect()->back()->with('error', 'No existe registro con el numero de documento.');
         }
     }
@@ -342,6 +342,40 @@ class LoginController extends Controller
 
             // Redirigir a la vista después de crear los productos
             return redirect()->route('asignar_producto')->with('success', 'Productos asignados correctamente');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(["resp" => "Error al crear productos: " . $e->getMessage()], 500);
+        }
+    }
+    public function exportar_productos()
+    {
+        return view('exportar_producto');
+    }
+    public function exportar_varios_productos(Request $request)
+    {
+        $productos = $request->input('productos');
+
+        if (!is_array($productos)) {
+            return response()->json(["resp" => "La lista de productos no es válida"], 400);
+        }
+        DB::beginTransaction();
+        try {
+            foreach ($productos as $productoData) {
+                if (!is_array($productoData)) {
+                    DB::rollback();
+                    return response()->json(["resp" => "Error al exportar productos: Formato de datos incorrecto"], 400);
+                }
+                $producto = Producto::findOrFail($productoData['id']);
+                $cantidad_producto = $productoData['cantidad'];
+                if ($producto->cantidad < $cantidad_producto) return redirect()->back()->with('error', 'No hay suficientes productos.');
+                $resultado = $producto->cantidad - $cantidad_producto;
+                $producto->fill([
+                    'cantidad' => $resultado
+                ])->save();
+                //return response()->json(["resp" => "Producto exportado exitosamente"]);
+            }
+            DB::commit();
+            return redirect()->route('exportar_producto')->with('success', 'Productos asignados correctamente');
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(["resp" => "Error al crear productos: " . $e->getMessage()], 500);

@@ -87,6 +87,7 @@
         <br>
 
     </div>
+    <br><br>
     <script>
         function mostrarAlerta() {
             // Personaliza el mensaje y tipo de alerta según tus necesidades

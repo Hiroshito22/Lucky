@@ -71,6 +71,9 @@ Route::middleware(['web'])->group(function () {
 
     Route::get('/asignar_producto', [LoginController::class, 'asignar_producto']);
     Route::post('/asignar_producto', [LoginController::class, 'asignar_varios_producto'])->name('asignar_producto');
+
+    Route::get('/exportar_producto', [LoginController::class, 'exportar_productos']);
+    Route::post('/exportar_producto', [LoginController::class, 'exportar_varios_productos'])->name('exportar_producto');
 });
 Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
 

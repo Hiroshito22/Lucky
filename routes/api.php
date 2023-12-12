@@ -49,6 +49,8 @@ Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
     Route::put('producto/update/{id}', 'ProductoController@update');
     Route::delete('producto/delete/{id}', 'ProductoController@delete');
     Route::get('producto/get', 'ProductoController@get');
+    Route::post('producto/exportar', 'ProductoController@exportar_equipos');
+    Route::post('producto/exportar/varios', 'ProductoController@exportar_varios_producto');
     Route::post('producto/asignar/{id_producto}', 'ProductoController@asignar_almacen');
     Route::post('producto/crear/varios/producto', 'ProductoController@crear_varios_producto');
     Route::post('producto/asignar/varios/producto', 'ProductoController@asignar_productos_almacen');

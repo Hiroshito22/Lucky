@@ -52,7 +52,7 @@ class AuthController extends Controller
         //return response()->json($response);
         //return view("logeo");
     }
-    
+
 
 
     public function getAuthenticatedUser()

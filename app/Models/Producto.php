@@ -13,13 +13,14 @@ class Producto extends Model
                             'nom_producto',
                             'descripcion',
                             'cantidad',
+                            'marca_id',
                             'estado_registro',
                         );
     protected $primaryKey = 'id';
     protected $hidden = [
         'created_at', 'updated_at','deleted_at'
     ];
-    public function producto_detalle(){
-        return $this->belongsTo(ProductoDetalle::class,'id');
+    public function marca(){
+        return $this->belongsTo(Marca::class,'marca_id','id');
     }
 }

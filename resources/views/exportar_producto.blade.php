@@ -36,7 +36,7 @@
                 <aside class="col-sm-4">
                     <div class="card">
                         <article class="card-body">
-                            <h4 class="card-title mb-4 mt-1">Asignar Producto</h4>
+                            <h4 class="card-title mb-4 mt-1">Exportar Producto</h4>
 
                             <div class="form-group">
                                 <label for="productos[0][id]">Escoge el Producto</label>
@@ -60,8 +60,16 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="productos[0][cantidad]">Cantidad del Producto para exportar</label>
+                                <label for="productos[0][cantidad]">Cantidad del Producto</label>
                                 <input name="productos[0][cantidad]" class="form-control" placeholder="0" type="number">
+                            </div>
+                            <div class="form-group">
+                                <label for="productos[0][destinatario]">Destinatario del Producto</label>
+                                <input name="productos[0][destinatario]" class="form-control" placeholder="Destinatario" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="productos[0][precio]">Precio del Producto</label>
+                                <input name="productos[0][precio]" class="form-control" placeholder="Precio" type="number">
                             </div>
                         </article>
                     </div>

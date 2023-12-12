@@ -112,12 +112,12 @@
                             <input type="number" class="form-control" id="cantidad" placeholder="0" name="cantidad">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="control-label col-sm-2" for="codigo">Código:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="codigo" placeholder="Escribe un nuevo codigo" name="codigo">
                         </div>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="marca_id">Marca:</label>
                         <div class="col-sm-10">

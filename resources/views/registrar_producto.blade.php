@@ -49,8 +49,12 @@
                                 <input name="productos[0][cantidad]" class="form-control" placeholder="0" type="number">
                             </div>
                             <div class="form-group">
-                                <label for="productos[0][codigo]">Código del Producto</label>
-                                <input name="productos[0][codigo]" class="form-control" placeholder="codigo" type="text">
+                                <label for="productos[0][proveedor]">Proveedor del Producto</label>
+                                <input name="productos[0][proveedor]" class="form-control" placeholder="Proveedor" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="productos[0][precio]">Precio del Producto</label>
+                                <input name="productos[0][precio]" class="form-control" placeholder="Precio" type="number">
                             </div>
                             <div class="form-group">
                                 <label for="productos[0][marca_id]">Marca del Producto</label>

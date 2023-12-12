@@ -86,7 +86,6 @@
                                 <th>Producto</th>
                                 <th>Descripcion</th>
                                 <th>Cantidad</th>
-                                <th>Codigo</th>
                                 <th>Marca</th>
                                 <th>Estado de Registro</th>
                             </tr>
@@ -97,7 +96,6 @@
                                 <td>{{$producto['nom_producto']}}</td>
                                 <td>{{$producto['descripcion']}}</td>
                                 <td>{{$producto['cantidad']}}</td>
-                                <td>{{$producto['codigo']}}</td>
                                 <td>{{$producto['marca']}}</td>
                                 <td>{{$producto['estado_registro']}}</td>
                             </tr>

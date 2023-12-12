@@ -170,7 +170,6 @@
                 <th>Producto</th>
                 <th>Descripción</th>
                 <th>Cantidad</th>
-                <th>Código</th>
                 <th>Marca</th>
             </tr>
         </thead>
@@ -180,7 +179,6 @@
                 <td>{{ $detalle['nom_producto'] }}</td>
                 <td>{{ $detalle['descripcion'] }}</td>
                 <td>{{ $detalle['cantidad'] }}</td>
-                <td>{{ $detalle['codigo'] }}</td>
                 <td>{{ $detalle['marca'] }}</td>
             </tr>
             @endforeach

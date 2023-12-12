@@ -186,20 +186,20 @@
         <thead>
             <tr>
                 <th>Producto</th>
-                <th>Descripción</th>
+                <th>Precio</th>
                 <th>Cantidad</th>
-                <th>Código</th>
-                <th>Marca</th>
+                <th>Fecha de Entrada</th>
+                <th>Proveedor</th>
             </tr>
         </thead>
         <tbody>
             @foreach($datos as $detalle)
             <tr>
                 <td>{{ $detalle['nom_producto'] }} </td>
-                <td>{{ $detalle['descripcion'] }}</td>
+                <td>{{ $detalle['precio'] }}</td>
                 <td>{{ $detalle['cantidad'] }}</td>
-                <td>{{ $detalle['codigo'] }}</td>
-                <td>{{ $detalle['marca'] }}</td>
+                <td>{{ $detalle['fecha_entrada'] }}</td>
+                <td>{{ $detalle['proveedor'] }}</td>
             </tr>
             @endforeach
         </tbody>

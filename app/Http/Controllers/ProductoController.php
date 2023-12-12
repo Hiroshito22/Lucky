@@ -7,6 +7,10 @@ use App\Models\AlmacenProducto;
 use App\Models\Persona;
 use App\Models\Producto;
 use App\Models\ProductoDetalle;
+use App\Models\RegistroEntrada;
+use App\Models\RegistroEntradaDetalle;
+use App\Models\RegistroSalida;
+use App\Models\RegistroSalidaDetalle;
 use App\Models\Trabajador;
 use App\User;
 use Carbon\Carbon;
@@ -21,20 +25,53 @@ class ProductoController extends Controller
         DB::beginTransaction();
         try {
             $usuario = User::with('persona')->where('id', auth()->user()->id)->first();
-            $producto = Producto::create([
-                "nom_producto" => $request->nom_producto,
-                "descripcion" => $request->descripcion,
-                //"foto" => $request->foto,
-                "cantidad" => $request->cantidad
-            ]);
-            $detalle = ProductoDetalle::create([
-                "codigo" => $request->codigo,
-                "marca_id" => $request->marca_id,
-                "empresa_id" => 1,
-                "producto_id" => $producto->id
-            ]);
-            DB::commit();
-            return response()->json(["resp" => "Producto creado correctamente"], 200);
+            $id_producto = Producto::where('nom_producto', $request->nom_producto)->first();
+            if ($id_producto) {
+                $cantidad_producto = Producto::where('nom_producto', $request->nom_producto)->first();
+                //return response()->json($cantidad_producto);
+                $cantidad_total = $request->cantidad + $cantidad_producto->cantidad;
+                $producto = Producto::updateOrCreate([
+                    "nom_producto" => $request->nom_producto,
+                ], [
+                    "nom_producto" => $request->nom_producto,
+                    "descripcion" => $request->descripcion,
+                    "cantidad" => $cantidad_total,
+                    "marca_id" => $request->marca_id
+                ]);
+                $entrada = RegistroEntrada::create([
+                    "fecha_entrada" => Carbon::now(),
+                    "proveedor" => $request->proveedor,
+                    "almacen_id" => 1
+                ]);
+                $entrada_detalle = RegistroEntradaDetalle::create([
+                    "producto_id" => $id_producto->id,
+                    "precio" => $request->precio . " soles",
+                    "cantidad" => $request->cantidad,
+                    "registro_entrada_id" => $entrada->id
+                ]);
+                DB::commit();
+                return response()->json(["resp" => "Producto creado correctamente"], 200);
+            } else {
+                $producto = Producto::create([
+                    "nom_producto" => $request->nom_producto,
+                    "descripcion" => $request->descripcion,
+                    "cantidad" => $request->cantidad,
+                    "marca_id" => $request->marca_id
+                ]);
+                $entrada = RegistroEntrada::create([
+                    "fecha_entrada" => Carbon::now(),
+                    "proveedor" => $request->proveedor,
+                    "almacen_id" => 1
+                ]);
+                $entrada_detalle = RegistroEntradaDetalle::create([
+                    "producto_id" => $producto->id,
+                    "precio" => $request->precio . " soles",
+                    "cantidad" => $request->cantidad,
+                    "registro_entrada_id" => $entrada->id
+                ]);
+                DB::commit();
+                return response()->json(["resp" => "Producto creado correctamente"], 200);
+            }
         } catch (Exception $e) {
             DB::rollback();
             return response()->json(["error" => "error " . $e], 500);
@@ -176,28 +213,68 @@ class ProductoController extends Controller
                 $producto = Producto::create([
                     "nom_producto" => $productoData['nom_producto'],
                     "descripcion" => $productoData['descripcion'],
-                    "cantidad" => $productoData['cantidad']
+                    "cantidad" => $productoData['cantidad'],
+                    "marca_id" => $productoData['marca_id']
                 ]);
-
-                // Crea un nuevo detalle de producto en la base de datos
-                $detalle = ProductoDetalle::create([
-                    "codigo" => $productoData['codigo'],
-                    "marca_id" => $productoData['marca_id'],
-                    "empresa_id" => 1,
-                    "producto_id" => $producto->id
+                $entrada = RegistroEntrada::create([
+                    "fecha_entrada" => Carbon::now(),
+                    "proveedor" => $productoData['proveedor'],
+                    "almacen_id" => 1
+                ]);
+                $entrada_detalle = RegistroEntradaDetalle::create([
+                    "producto_id" => $producto->id,
+                    "precio" => $productoData['precio'],
+                    "cantidad" => $productoData['cantidad'],
+                    "registro_entrada_id" => $entrada->id
                 ]);
             }
-
-            // Confirma la transacción si todo se realizó correctamente
             DB::commit();
-
-            // Devuelve una respuesta exitosa
             return response()->json(["resp" => "Productos creados correctamente"], 200);
         } catch (\Exception $e) {
-            // Revierte la transacción en caso de error
             DB::rollback();
+            return response()->json(["resp" => "Error al crear productos"], 500);
+        }
+    }
+    public function exportar_varios_producto(Request $request)
+    {
+        // Obtén los productos del cuerpo de la solicitud
+        $productos = $request->productos;
 
-            // Devuelve una respuesta de error
+        // Inicia una transacción en la base de datos
+        DB::beginTransaction();
+
+        try {
+            // Itera sobre los productos
+            foreach ($productos as $productoData) {
+                $id_producto = Producto::where('id', $productoData['id_producto'])->first();
+                //return response()->json($id_producto);
+                if ($id_producto) {
+                    if ($productoData['cantidad'] > $id_producto->cantidad) return response()->json(["resp" => "No hay suficientes productos"]);
+                    $cantidad_total = $id_producto->cantidad - $productoData['cantidad'];
+                    $producto = Producto::updateOrCreate([
+                        "id" => $productoData['id_producto'],
+                    ], [
+                        "cantidad" => $cantidad_total,
+                    ]);
+                    $salida = RegistroSalida::create([
+                        "fecha_salida" => Carbon::now(),
+                        "destinatario" => $productoData['destinatario'],
+                        "almacen_id" => 1
+                    ]);
+                    $entrada_detalle = RegistroSalidaDetalle::create([
+                        "producto_id" => $id_producto->id,
+                        "precio" => $productoData['precio'],
+                        "cantidad" => $productoData['cantidad'],
+                        "registro_salida_id" => $salida->id
+                    ]);
+                } else {
+                    return response()->json(["resp" => "Producto inexistente"], 200);
+                }
+            }
+            DB::commit();
+            return response()->json(["resp" => "Productos creados correctamente"], 200);
+        } catch (\Exception $e) {
+            DB::rollback();
             return response()->json(["resp" => "Error al crear productos"], 500);
         }
     }
@@ -236,7 +313,42 @@ class ProductoController extends Controller
             DB::rollback();
 
             // Devuelve una respuesta de error
-            return response()->json(["resp" => "Error al crear productos ".$e], 500);
+            return response()->json(["resp" => "Error al crear productos " . $e], 500);
+        }
+    }
+    public function exportar_equipos(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $usuario = User::with('persona')->where('id', auth()->user()->id)->first();
+            $id_producto = Producto::where('id', $request->id_producto)->first();
+            if ($id_producto) {
+                if ($request->cantidad > $id_producto->cantidad) return response()->json(["resp" => "No hay suficientes productos"]);
+                $cantidad_total = $id_producto->cantidad - $request->cantidad;
+                $producto = Producto::updateOrCreate([
+                    "id" => $request->id_producto,
+                ], [
+                    "cantidad" => $cantidad_total,
+                ]);
+                $salida = RegistroSalida::create([
+                    "fecha_salida" => Carbon::now(),
+                    "destinatario" => $request->destinatario,
+                    "almacen_id" => 1
+                ]);
+                $entrada_detalle = RegistroSalidaDetalle::create([
+                    "producto_id" => $id_producto->id,
+                    "precio" => $request->precio,
+                    "cantidad" => $request->cantidad,
+                    "registro_salida_id" => $salida->id
+                ]);
+                DB::commit();
+                return response()->json(["resp" => "Producto exportado correctamente"], 200);
+            } else {
+                return response()->json(["resp" => "Producto inexistente"], 200);
+            }
+        } catch (Exception $e) {
+            DB::rollback();
+            return response()->json(["error" => "error " . $e], 500);
         }
     }
 }

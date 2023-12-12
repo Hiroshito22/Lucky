@@ -6,6 +6,10 @@ use App\Models\AlmacenProducto;
 use App\Models\Persona;
 use App\Models\Producto;
 use App\Models\ProductoDetalle;
+use App\Models\RegistroEntrada;
+use App\Models\RegistroEntradaDetalle;
+use App\Models\RegistroSalida;
+use App\Models\RegistroSalidaDetalle;
 use App\Models\Trabajador;
 use App\User;
 use Carbon\Carbon;
@@ -137,7 +141,7 @@ class LoginController extends Controller
     }
     public function buscar_producto()
     {
-        $productos = Producto::with('producto_detalle.marca', 'producto_detalle.empresa')
+        $productos = Producto::with('marca')
             ->where('estado_registro', 'A')
             ->get();
 
@@ -147,15 +151,13 @@ class LoginController extends Controller
             $nom_producto = $producto->nom_producto ?? null;
             $descripcion = $producto->descripcion ?? null;
             $cantidad = $producto->cantidad ?? null;
-            $codigo = $producto->producto_detalle->codigo ?? null;
-            $marca = $producto->producto_detalle->marca->nombre ?? null;
+            $marca = $producto->marca->nombre ?? null;
             $estado_registro = $producto->estado_registro ?? null;
 
             $datos[] = [
                 "nom_producto" => $nom_producto ?? null,
                 "descripcion" => $descripcion ?? null,
                 "cantidad" => $cantidad ?? null,
-                "codigo" => $codigo ?? null,
                 "marca" => $marca ?? null,
                 "estado_registro" => $estado_registro ?? null,
             ];
@@ -176,25 +178,16 @@ class LoginController extends Controller
         try {
 
             $producto = Producto::find($request->input('id'));
-            $detalle = ProductoDetalle::where('producto_id', $request->input('id'))->where('estado_registro', 'A')->first();
+            //$detalle = ProductoDetalle::where('producto_id', $request->input('id'))->where('estado_registro', 'A')->first();
 
-            if ($detalle) {
-                $producto->update([
-                    "descripcion" => $request->input('descripcion'),
-                    "cantidad" => $request->input('cantidad'),
-                ]);
+            $producto->update([
+                "descripcion" => $request->input('descripcion'),
+                "cantidad" => $request->input('cantidad'),
+                "marca_id" => $request->input('marca_id'),
+            ]);
 
-                $detalle->update([
-                    "codigo" => $request->input('codigo'),
-                    "marca_id" => $request->input('marca_id'),
-                ]);
-
-                DB::commit();
-                return redirect()->back()->with('success', 'Producto actualizado exitosamente.');
-            } else {
-                // Manejar el caso donde $detalle es nulo
-                return redirect()->back()->with('error', 'No existe detalle.');
-            }
+            DB::commit();
+            return redirect()->back()->with('success', 'Producto actualizado exitosamente.');
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(["error" => "Error al actualizar el producto: " . $e->getMessage()], 500);
@@ -210,23 +203,14 @@ class LoginController extends Controller
 
         try {
             $producto = Producto::findOrFail($request->input('nom_producto'));
-            $detalle = ProductoDetalle::where('producto_id', $request->input('nom_producto'))->first();
+            //$detalle = ProductoDetalle::where('producto_id', $request->input('nom_producto'))->first();
 
-            if ($detalle) {
-                $producto->update([
-                    "estado_registro" => "I",
-                ]);
+            $producto->update([
+                "estado_registro" => "I",
+            ]);
 
-                $detalle->update([
-                    "estado_registro" => "I",
-                ]);
-
-                DB::commit();
-                return redirect()->back()->with('success', 'Producto eliminado exitosamente.');
-            } else {
-                // Manejar el caso donde $detalle es nulo
-                return response()->json(["error" => "Detalle no encontrado"], 404);
-            }
+            DB::commit();
+            return redirect()->back()->with('success', 'Producto eliminado exitosamente.');
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(["error" => "Error al eliminar el producto: " . $e->getMessage()], 500);
@@ -267,18 +251,53 @@ class LoginController extends Controller
                     return response()->json(["resp" => "Error al crear productos: Formato de datos incorrecto"], 400);
                 }
 
-                $producto = Producto::create([
-                    "nom_producto" => $productoData['nom_producto'],
-                    "descripcion" => $productoData['descripcion'],
-                    "cantidad" => $productoData['cantidad']
-                ]);
-
-                $detalle = ProductoDetalle::create([
-                    "codigo" => $productoData['codigo'],
-                    "marca_id" => $productoData['marca_id'],
-                    "empresa_id" => 1,
-                    "producto_id" => $producto->id
-                ]);
+                $id_producto = Producto::where('nom_producto',  $productoData['nom_producto'])->first();
+                if ($id_producto) {
+                    $cantidad_producto = Producto::where('nom_producto',  $productoData['nom_producto'])->first();
+                    //return response()->json($cantidad_producto);
+                    $cantidad_total =  $productoData['cantidad'] + $cantidad_producto->cantidad;
+                    $producto = Producto::updateOrCreate([
+                        "nom_producto" =>  $productoData['nom_producto'],
+                    ], [
+                        "nom_producto" =>  $productoData['nom_producto'],
+                        "descripcion" =>  $productoData['descripcion'],
+                        "cantidad" => $cantidad_total,
+                        "marca_id" =>  $productoData['marca_id']
+                    ]);
+                    $entrada = RegistroEntrada::create([
+                        "fecha_entrada" => Carbon::now(),
+                        "proveedor" => $productoData['proveedor'],
+                        "almacen_id" => 1
+                    ]);
+                    $entrada_detalle = RegistroEntradaDetalle::create([
+                        "producto_id" => $id_producto->id,
+                        "precio" => $productoData['precio'],
+                        "cantidad" => $productoData['cantidad'],
+                        "registro_entrada_id" => $entrada->id
+                    ]);
+                    DB::commit();
+                    //return response()->json(["resp" => "Producto creado correctamente"], 200);
+                } else {
+                    $producto = Producto::create([
+                        "nom_producto" => $productoData['nom_producto'],
+                        "descripcion" => $productoData['descripcion'],
+                        "cantidad" => $productoData['cantidad'],
+                        "marca_id" => $productoData['marca_id'],
+                    ]);
+                    $entrada = RegistroEntrada::create([
+                        "fecha_entrada" => Carbon::now(),
+                        "proveedor" => $productoData['proveedor'],
+                        "almacen_id" => 1
+                    ]);
+                    $entrada_detalle = RegistroEntradaDetalle::create([
+                        "producto_id" => $producto->id,
+                        "precio" => $productoData['precio'],
+                        "cantidad" => $productoData['cantidad'],
+                        "registro_entrada_id" => $entrada->id
+                    ]);
+                    DB::commit();
+                    //return response()->json(["resp" => "Producto creado correctamente"], 200);
+                }
             }
 
             DB::commit();
@@ -363,16 +382,28 @@ class LoginController extends Controller
             foreach ($productos as $productoData) {
                 if (!is_array($productoData)) {
                     DB::rollback();
-                    return response()->json(["resp" => "Error al exportar productos: Formato de datos incorrecto"], 400);
+                    //return response()->json(["resp" => "Error al exportar productos: Formato de datos incorrecto"], 400);
                 }
-                $producto = Producto::findOrFail($productoData['id']);
-                $cantidad_producto = $productoData['cantidad'];
-                if ($producto->cantidad < $cantidad_producto) return redirect()->back()->with('error', 'No hay suficientes productos.');
-                $resultado = $producto->cantidad - $cantidad_producto;
-                $producto->fill([
-                    'cantidad' => $resultado
-                ])->save();
-                //return response()->json(["resp" => "Producto exportado exitosamente"]);
+                $id_producto = Producto::where('id', $productoData['id'])->first();
+                //return response()->json($id_producto);
+                if ($productoData['cantidad'] > $id_producto->cantidad) return response()->json(["resp" => "No hay suficientes productos"]);
+                $cantidad_total = $id_producto->cantidad - $productoData['cantidad'];
+                $producto = Producto::updateOrCreate([
+                    "id" => $productoData['id'],
+                ], [
+                    "cantidad" => $cantidad_total,
+                ]);
+                $salida = RegistroSalida::create([
+                    "fecha_salida" => Carbon::now(),
+                    "destinatario" => $productoData['destinatario'],
+                    "almacen_id" => 1
+                ]);
+                $entrada_detalle = RegistroSalidaDetalle::create([
+                    "producto_id" => $id_producto->id,
+                    "precio" => $productoData['precio'],
+                    "cantidad" => $productoData['cantidad'],
+                    "registro_salida_id" => $salida->id
+                ]);
             }
             DB::commit();
             return redirect()->route('exportar_producto')->with('success', 'Productos asignados correctamente');

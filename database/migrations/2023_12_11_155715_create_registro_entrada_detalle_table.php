@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductoTable extends Migration
+class CreateRegistroEntradaDetalleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateProductoTable extends Migration
      */
     public function up()
     {
-        Schema::create('producto', function (Blueprint $table) {
+        Schema::create('registro_entrada_detalle', function (Blueprint $table) {
             $table->id();
-            $table->string('nom_producto')->nullable();
-            $table->string('descripcion')->nullable();
-            //$table->string('foto')->nullable();
+            $table->foreignId('producto_id')->nullable()->references('id')->on('producto');
+            $table->integer('precio')->nullable();
             $table->integer('cantidad')->nullable();
-            $table->foreignId('marca_id')->nullable()->references('id')->on('marca');
-            $table->char('estado_registro')->default('A');
+            $table->foreignId('registro_entrada_id')->nullable()->references('id')->on('registro_entrada');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateProductoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('producto');
+        Schema::dropIfExists('registro_entrada_detalle');
     }
 }

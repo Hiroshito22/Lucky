@@ -16,7 +16,7 @@ class CreateRegistroSalidaTable extends Migration
         Schema::create('registro_salida', function (Blueprint $table) {
             $table->id();
             $table->date('fecha_salida')->nullable();
-            $table->string('destinatario')->nullable();
+            $table->foreignId('destinatario_id')->nullable()->references('id')->on('destinatario');
             $table->foreignId('almacen_id')->nullable()->references('id')->on('almacen');
             $table->timestamps();
         });

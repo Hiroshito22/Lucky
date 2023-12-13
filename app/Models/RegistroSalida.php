@@ -11,7 +11,7 @@ class RegistroSalida extends Model
     protected $table = 'registro_salida';
     protected $fillable = array(
                             'fecha_salida',
-                            'destinatario',
+                            'destinatario_id',
                             'almacen_id',
                         );
     protected $primaryKey = 'id';
@@ -20,5 +20,8 @@ class RegistroSalida extends Model
     ];
     public function almacen(){
         return $this->belongsTo(Almacen::class,'almacen_id','id');
+    }
+    public function destinatario(){
+        return $this->belongsTo(Destinatario::class,'destinatario_id','id');
     }
 }

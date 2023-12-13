@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRegistroEntradaTable extends Migration
+class CreateDestinatarioTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateRegistroEntradaTable extends Migration
      */
     public function up()
     {
-        Schema::create('registro_entrada', function (Blueprint $table) {
+        Schema::create('destinatario', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha_entrada')->nullable();
-            $table->foreignId('proveedor_id')->nullable()->references('id')->on('proveedor');
-            $table->foreignId('almacen_id')->nullable()->references('id')->on('almacen');
+            $table->string('destinatario')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateRegistroEntradaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('registro_entrada');
+        Schema::dropIfExists('destinatario');
     }
 }

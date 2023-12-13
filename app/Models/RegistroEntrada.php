@@ -11,7 +11,7 @@ class RegistroEntrada extends Model
     protected $table = 'registro_entrada';
     protected $fillable = array(
                             'fecha_entrada',
-                            'proveedor',
+                            'proveedor_id',
                             'almacen_id',
                         );
     protected $primaryKey = 'id';
@@ -20,5 +20,8 @@ class RegistroEntrada extends Model
     ];
     public function almacen(){
         return $this->belongsTo(Almacen::class,'almacen_id','id');
+    }
+    public function proveedor(){
+        return $this->belongsTo(Proveedor::class,'proveedor_id','id');
     }
 }

@@ -7,6 +7,7 @@ use App\Models\AlmacenProducto;
 use App\Models\Persona;
 use App\Models\Producto;
 use App\Models\ProductoDetalle;
+use App\Models\Proveedor;
 use App\Models\RegistroEntrada;
 use App\Models\RegistroEntradaDetalle;
 use App\Models\RegistroSalida;
@@ -25,6 +26,7 @@ class ProductoController extends Controller
         DB::beginTransaction();
         try {
             $usuario = User::with('persona')->where('id', auth()->user()->id)->first();
+            $id_proveedor = Proveedor::where('id',$request->id_proveedor)->first();
             $id_producto = Producto::where('nom_producto', $request->nom_producto)->first();
             if ($id_producto) {
                 $cantidad_producto = Producto::where('nom_producto', $request->nom_producto)->first();
@@ -40,7 +42,7 @@ class ProductoController extends Controller
                 ]);
                 $entrada = RegistroEntrada::create([
                     "fecha_entrada" => Carbon::now(),
-                    "proveedor" => $request->proveedor,
+                    "proveedor" => $id_proveedor->proveedor,
                     "almacen_id" => 1
                 ]);
                 $entrada_detalle = RegistroEntradaDetalle::create([
@@ -202,14 +204,14 @@ class ProductoController extends Controller
     {
         // Obtén los productos del cuerpo de la solicitud
         $productos = $request->productos;
-
         // Inicia una transacción en la base de datos
         DB::beginTransaction();
-
         try {
             // Itera sobre los productos
+            
             foreach ($productos as $productoData) {
                 // Crea un nuevo producto en la base de datos
+                
                 $producto = Producto::create([
                     "nom_producto" => $productoData['nom_producto'],
                     "descripcion" => $productoData['descripcion'],

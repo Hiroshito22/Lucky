@@ -48,8 +48,8 @@ class AuthController extends Controller
             "persona" => $user->persona,
         );
         $response['token'] = $token;
-        return redirect()->intended("/menu/{$user->id}");
-        //return response()->json($response);
+        //return redirect()->intended("/menu/{$user->id}");
+        return response()->json($response);
         //return view("logeo");
     }
 

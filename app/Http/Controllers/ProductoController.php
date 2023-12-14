@@ -204,31 +204,32 @@ class ProductoController extends Controller
     {
         // Obtén los productos del cuerpo de la solicitud
         $productos = $request->productos;
+        
         // Inicia una transacción en la base de datos
         DB::beginTransaction();
         try {
             // Itera sobre los productos
-            
+
             foreach ($productos as $productoData) {
                 // Crea un nuevo producto en la base de datos
-                
+
                 $producto = Producto::create([
                     "nom_producto" => $productoData['nom_producto'],
                     "descripcion" => $productoData['descripcion'],
                     "cantidad" => $productoData['cantidad'],
                     "marca_id" => $productoData['marca_id']
                 ]);
-                $entrada = RegistroEntrada::create([
-                    "fecha_entrada" => Carbon::now(),
-                    "proveedor" => $productoData['proveedor'],
-                    "almacen_id" => 1
-                ]);
-                $entrada_detalle = RegistroEntradaDetalle::create([
-                    "producto_id" => $producto->id,
-                    "precio" => $productoData['precio'],
-                    "cantidad" => $productoData['cantidad'],
-                    "registro_entrada_id" => $entrada->id
-                ]);
+                // $entrada = RegistroEntrada::create([
+                //     "fecha_entrada" => Carbon::now(),
+                //     "proveedor_id" => $productoData['proveedor_id'],
+                //     "almacen_id" => 1
+                // ]);
+                // $entrada_detalle = RegistroEntradaDetalle::create([
+                //     "producto_id" => $producto->id,
+                //     "precio" => $productoData['precio'],
+                //     "cantidad" => $productoData['cantidad'],
+                //     "registro_entrada_id" => $entrada->id
+                // ]);
             }
             DB::commit();
             return response()->json(["resp" => "Productos creados correctamente"], 200);

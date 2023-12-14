@@ -7,7 +7,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <title>Registrar</title>
+    <title>Entrada</title>
     <style>
         body {
             background-image: url('https://manfric.com/wp-content/uploads/2023/02/tipos-aire-acondicionado-industrial-manfric.jpg');
@@ -21,7 +21,7 @@
     <br><br>
     <div class="container" style="background-color: #A5FFEF;">
         <br>
-        <h2 class="text-center" style="color: red;">REGISTRA TODOS LOS PRODUCTOS AL ALMACEN</h2>
+        <h2 class="text-center" style="color: red;">ENTRADA DE LOS PRODUCTOS AL ALMACEN</h2>
         <div class="d-flex justify-content-center align-items-center" style="height: 10vh;">
             <button type="button" class="btn btn-primary" id="btnCancelar" style="background-color: #B92727; color:aliceblue">Cancelar</button>
         </div>
@@ -29,14 +29,36 @@
         <form action="{{ route('asignar_producto') }}" method="post">
             @csrf
             <div class="d-flex justify-content-center align-items-center" style="height: 5vh;">
-                <button type="submit" class="btn btn-primary mx-auto d-block" style="width: 60%;" onclick="mostrarAlerta()">Guardar Producto</button>
+                <button type="submit" class="btn btn-primary mx-auto d-block" style="width: 60%;" onclick="mostrarAlerta()">Guadar Productos</button>
             </div>
             <br><br>
+            <div class="form-group">
+                <label for="proveedor_id">Escoge el Proveedor</label>
+                <select class="form-control" name="proveedor_id">
+                    <option value="">Selecciona un Proveedor</option>
+                    <?php
+                    $conexion = new mysqli("localhost", "root", "", "lucky");
+
+                    if ($conexion->connect_error) {
+                        die("Conexión fallida: " . $conexion->connect_error);
+                    }
+
+                    $consulta = "SELECT id, proveedor FROM proveedor";
+                    $resultado = $conexion->query($consulta);
+
+                    while ($fila = $resultado->fetch_assoc()) {
+                        echo "<option value='{$fila['id']}'>{$fila['proveedor']}</option>";
+                    }
+                    $conexion->close();
+                    ?>
+                </select>
+            </div>
             <div class="row" id="productos-container">
+
                 <aside class="col-sm-4">
                     <div class="card">
                         <article class="card-body">
-                            <h4 class="card-title mb-4 mt-1">Asignar Producto</h4>
+                            <h4 class="card-title mb-4 mt-1">Entrada de Producto</h4>
 
                             <div class="form-group">
                                 <label for="productos[0][id]">Escoge el Producto</label>
@@ -59,6 +81,14 @@
                                     ?>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="productos[0][cantidad]">Cantidad del Producto</label>
+                                <input name="productos[0][cantidad]" class="form-control" placeholder="0" type="number">
+                            </div>
+                            <div class="form-group">
+                                <label for="productos[0][precio]">Precio del Producto</label>
+                                <input name="productos[0][precio]" class="form-control" placeholder="Precio" type="number">
+                            </div>
                         </article>
                     </div>
                     <br>
@@ -73,7 +103,7 @@
         <br>
 
     </div>
-<br><br>
+    <br><br>
     <script>
         $(document).ready(function() {
             var contador = 1; // Inicializar el contador

@@ -13,7 +13,7 @@ class ReportePDFController extends Controller
 {
     public function reporte_equipos_entrada()
     {
-        $productos = RegistroEntradaDetalle::with('producto','registro_entrada')->get();
+        $productos = RegistroEntradaDetalle::with('producto','registro_entrada.proveedor')->get();
         //return response()->json($productos);
         $datos = [];
 
@@ -22,7 +22,7 @@ class ReportePDFController extends Controller
             $cantidad = $producto->cantidad ?? null;
             $nom_producto = $producto->producto->nom_producto ?? null;
             $fecha_entrada = $producto->registro_entrada->fecha_entrada ?? null;
-            $proveedor = $producto->registro_entrada->proveedor ?? null;
+            $proveedor = $producto->registro_entrada->proveedor->proveedor ?? null;
 
             $datos[] = [
                 "precio" => $precio ?? null,
@@ -64,7 +64,7 @@ class ReportePDFController extends Controller
     }
     public function reporte_equipos_salida()
     {
-        $productos = RegistroSalidaDetalle::with('producto', 'registro_salida')->get();
+        $productos = RegistroSalidaDetalle::with('producto', 'registro_salida.destinatario')->get();
 
         $datos = [];
 
@@ -73,7 +73,7 @@ class ReportePDFController extends Controller
             $cantidad = $producto->cantidad ?? null;
             $nom_producto = $producto->producto->nom_producto ?? null;
             $fecha_salida = $producto->registro_salida->fecha_salida ?? null;
-            $destinatario = $producto->registro_salida->destinatario ?? null;
+            $destinatario = $producto->registro_salida->destinatario->destinatario ?? null;
 
             $datos[] = [
                 "precio" => $precio ?? null,

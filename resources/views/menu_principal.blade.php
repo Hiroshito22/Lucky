@@ -202,22 +202,22 @@
             <li><a class="dropdown-item" href="{{route('exportar_producto')}}">Salida Productos</a></li>
           </ul>
         </li>
-        <li class="nav-item dropdown"> <!-- Agrega la clase dropdown al elemento principal -->
+        <li class="nav-item dropdown"> 
           <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Proveedores y Destinatarios
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{route('registrar_producto')}}">Crear Proveedor</a></li>
-            <li><a class="dropdown-item" href="{{route('buscar_producto')}}">Actualizar Proveedor</a></li>
-            <li><a class="dropdown-item" href="{{route('actualizar_producto')}}">Eliminar Proveedor</a></li>
-            <li><a class="dropdown-item" href="{{route('eliminar_producto')}}">Ver Proveedores</a></li>
+            <li><a class="dropdown-item" href="{{route('proveedor_crear')}}">Crear Proveedor</a></li>
+            <li><a class="dropdown-item" href="{{route('proveedor_actualizar')}}">Actualizar Proveedor</a></li>
+            <li><a class="dropdown-item" href="{{route('proveedor_eliminar')}}">Eliminar Proveedor</a></li>
+            <li><a class="dropdown-item" href="{{route('proveedor_ver')}}">Ver Proveedores</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="{{route('registrar_producto')}}">Crear Destinatario</a></li>
-            <li><a class="dropdown-item" href="{{route('buscar_producto')}}">Actualizar Destinatario</a></li>
-            <li><a class="dropdown-item" href="{{route('actualizar_producto')}}">Eliminar Destinatario</a></li>
-            <li><a class="dropdown-item" href="{{route('eliminar_producto')}}">Ver Destinatarios</a></li>
+            <li><a class="dropdown-item" href="{{route('destinatario_crear')}}">Crear Destinatario</a></li>
+            <li><a class="dropdown-item" href="{{route('destinatario_actualizar')}}">Actualizar Destinatario</a></li>
+            <li><a class="dropdown-item" href="{{route('destinatario_eliminar')}}">Eliminar Destinatario</a></li>
+            <li><a class="dropdown-item" href="{{route('destinatario_ver')}}">Ver Destinatarios</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown"> <!-- Agrega la clase dropdown al elemento principal -->

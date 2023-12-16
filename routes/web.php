@@ -74,6 +74,29 @@ Route::middleware(['web'])->group(function () {
 
     Route::get('/exportar_producto', [LoginController::class, 'exportar_productos']);
     Route::post('/exportar_producto', [LoginController::class, 'exportar_varios_productos'])->name('exportar_producto');
+
+    //Proveedores y Destinatarios
+    Route::get('/proveedor_crear', [LoginController::class, 'create_proveedor_mostrar']);
+    Route::post('/proveedor_crear', [LoginController::class, 'create_proveedor'])->name('proveedor_crear');
+
+    Route::get('/proveedor_actualizar', [LoginController::class, 'update_proveedor_mostrar']);
+    Route::post('/proveedor_actualizar', [LoginController::class, 'update_proveedor'])->name('proveedor_actualizar');
+
+    Route::get('/proveedor_eliminar', [LoginController::class, 'delete_proveedor_mostrar']);
+    Route::post('/proveedor_eliminar', [LoginController::class, 'delete_proveedor'])->name('proveedor_eliminar');
+
+    Route::get('/proveedor_ver', [LoginController::class, 'get_proveedor'])->name('proveedor_ver');
+    //------------------------------------------------------------------------------
+    Route::get('/destinatario_crear', [LoginController::class, 'create_destinatario_mostrar']);
+    Route::post('/destinatario_crear', [LoginController::class, 'create_destinatario'])->name('destinatario_crear');
+
+    Route::get('/destinatario_actualizar', [LoginController::class, 'update_destinatario_mostrar']);
+    Route::post('/destinatario_actualizar', [LoginController::class, 'update_destinatario'])->name('destinatario_actualizar');
+
+    Route::get('/destinatario_eliminar', [LoginController::class, 'delete_destinatario_mostrar']);
+    Route::post('/destinatario_eliminar', [LoginController::class, 'delete_destinatario'])->name('destinatario_eliminar');
+
+    Route::get('/destinatario_ver', [LoginController::class, 'get_destinatario'])->name('destinatario_ver');
 });
 Route::group(['middleware' => ['jwt.verify', 'cors']], function () {
 

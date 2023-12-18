@@ -70,7 +70,7 @@
         <div class="col-md-3">
             <div class="contact-info">
                 <img src="https://cdn.icon-icons.com/icons2/1526/PNG/512/checklist_106575.png" alt="image" />
-                <h2>Mira los Productos !!!</h2>
+                <h2>Mira los Proveedores !!!</h2>
                 <h4>No puede faltar ningun producto </h4>
             </div>
         </div>

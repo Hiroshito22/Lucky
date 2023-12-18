@@ -103,7 +103,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="proveedor">Nuevo nombre:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="proveedor" placeholder="Escribe una nueva descripcion" name="proveedor">
+                            <input type="text" class="form-control" id="proveedor" placeholder="Escribe un nuevo proveedor" name="proveedor">
                         </div>
                     </div>
                     

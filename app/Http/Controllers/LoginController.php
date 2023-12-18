@@ -503,12 +503,11 @@ class LoginController extends Controller
     {
         DB::beginTransaction();
         try {
-            $datos = User::with('persona')->where('id', auth()->user()->id)->first();
             $destinatario = Destinatario::create([
-                "destinatario" => $request->destinatario,
+                "destinatario" => $request->input('destinatario')
             ]);
             DB::commit();
-            return response()->json(["resp" => "Destinatario creado correctamente"], 200);
+            return redirect()->route('destinatario_crear')->with('success', 'Destinatario creado correctamente');
         } catch (Exception $e) {
             DB::rollback();
             return response()->json(["error" => "error " . $e], 500);
@@ -518,18 +517,16 @@ class LoginController extends Controller
     {
         return view('destinatario_actualizar');
     }
-    public function update_destinatario(Request $request, $id_destinatario)
+    public function update_destinatario(Request $request)
     {
         DB::beginTransaction();
         try {
-            $datos = User::with('persona')->where('id', auth()->user()->id)->first();
-            $destinatario = Destinatario::find($id_destinatario)->first();
-            $destinatario->fill([
-                "destinatario" => $request->destinatario,
-            ])
-                ->save();
+            $destinatario = Destinatario::find($request->input('id'));
+            $destinatario->update([
+                "destinatario" => $request->input('destinatario')
+            ]);
             DB::commit();
-            return response()->json(["resp" => "Destinatario actualizado correctamente"], 200);
+            return redirect()->route('destinatario_actualizar')->with('success', 'Destinatario actualizado correctamente');
         } catch (Exception $e) {
             DB::rollback();
             return response()->json(["error" => "error " . $e], 500);
@@ -539,30 +536,40 @@ class LoginController extends Controller
     {
         return view('destinatario_eliminar');
     }
-    public function delete_destinatario($id_destinatario)
+    public function delete_destinatario(Request $request)
     {
         DB::beginTransaction();
+
         try {
-            $datos = User::with('persona')->where('id', auth()->user()->id)->first();
-            $destinatario = Destinatario::find($id_destinatario);
+            $destinatario = Destinatario::find($request->input('id'));
+            //$detalle = ProductoDetalle::where('producto_id', $request->input('nom_producto'))->first();
+
             $destinatario->delete();
+
             DB::commit();
-            return response()->json(["resp" => "Destinatario eliminada correctamente"], 200);
-        } catch (Exception $e) {
+            return redirect()->back()->with('success', 'Proveedor eliminado exitosamente.');
+        } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(["error" => "error " . $e], 500);
+            return response()->json(["error" => "Error al eliminar el producto: " . $e->getMessage()], 500);
         }
     }
     public function get_destinatario()
     {
         try {
-            $usuario = User::with('persona')->where('id', auth()->user()->id)->first();
+            $destinatarios = Destinatario::get();
 
-            $trabajador = Destinatario::get();
+            $datos = [];
 
-            return response()->json(["data" => $trabajador, "size" => (count($trabajador))], 200);
+            foreach ($destinatarios as $destinatario) {
+                $nombre = $destinatario->destinatario ?? null;
+
+                $datos[] = [
+                    "destinatario" => $nombre ?? null,
+                ];
+            }
+            return view('destinatario_ver', ['datos' => $datos]);
         } catch (Exception $e) {
-            return response()->json(["resp" => "error", "error" => "Error al llamar a los almacenes  " . $e], 400);
+            return response()->json(["resp" => "error", "error" => "Error al llamar a los destinatarios  " . $e], 400);
         }
     }
 }

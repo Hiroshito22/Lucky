@@ -63,24 +63,24 @@
         box-shadow: none;
     }
 </style>
-<form action="{{ route('actualizar_producto') }}" method="post">
+<form action="{{ route('destinatario_eliminar') }}" method="post">
     @csrf
     <div class="container contact">
         <div class="row">
             <div class="col-md-3">
                 <div class="contact-info">
                     <img src="https://cdn.icon-icons.com/icons2/1526/PNG/512/checklist_106575.png" alt="image" />
-                    <h2>Asignemos un rol !!!</h2>
+                    <h2>Elimina un destinatario !!!</h2>
                     <h4>Cada rol es importante para el personal . . .</h4>
                 </div>
             </div>
             <div class="col-md-9">
                 <div class="contact-form">
                     <div class="form-group">
-                        <label class="control-label col-sm-6" for="id">Selecciona el Producto a Actualizar:</label>
+                        <label class="control-label col-sm-6" for="id">Selecciona el Destinatario para eliminar:</label>
                         <div class="col-sm-10">
                             <select class="form-control" id="id" name="id">
-                                <option value="">Selecciona un Producto</option>
+                                <option value="">Selecciona un Destinatario</option>
                                 <?php
                                 $conexion = new mysqli("localhost", "root", "", "lucky");
 
@@ -88,63 +88,22 @@
                                     die("Conexión fallida: " . $conexion->connect_error);
                                 }
 
-                                $consulta = "SELECT id, nom_producto FROM producto WHERE estado_registro = 'A'";
+                                $consulta = "SELECT id, destinatario FROM destinatario";
                                 $resultado = $conexion->query($consulta);
 
                                 while ($fila = $resultado->fetch_assoc()) {
-                                    echo "<option value='{$fila['id']}'>{$fila['nom_producto']}</option>";
+                                    echo "<option value='{$fila['id']}'>{$fila['destinatario']}</option>";
                                 }
                                 $conexion->close();
                                 ?>
                             </select>
                         </div>
                     </div>
-                    <hr>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="descripcion">Descripcion:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="descripcion" placeholder="Escribe una nueva descripcion" name="descripcion">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="cantidad">Cantidad:</label>
-                        <div class="col-sm-10">
-                            <input type="number" class="form-control" id="cantidad" placeholder="0" name="cantidad">
-                        </div>
-                    </div>
-                    <!-- <div class="form-group">
-                        <label class="control-label col-sm-2" for="codigo">Código:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="codigo" placeholder="Escribe un nuevo codigo" name="codigo">
-                        </div>
-                    </div> -->
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="marca_id">Marca:</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" id="marca_id" name="marca_id">
-                                <option value="">Selecciona una Marca</option>
-                                <?php
-                                $conexion = new mysqli("localhost", "root", "", "lucky");
-
-                                if ($conexion->connect_error) {
-                                    die("Conexión fallida: " . $conexion->connect_error);
-                                }
-
-                                $consulta = "SELECT id, nombre FROM marca";
-                                $resultado = $conexion->query($consulta);
-
-                                while ($fila = $resultado->fetch_assoc()) {
-                                    echo "<option value='{$fila['id']}'>{$fila['nombre']}</option>";
-                                }
-                                $conexion->close();
-                                ?>
-                            </select>
-                        </div>
-                    </div>
+                    
                     <br>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Guardar</button>
+                            <button type="submit" class="btn btn-default">Eliminar</button>
                         </div>
                         <br>
                         <div class="col-sm-offset-2 col-sm-10">

@@ -22,7 +22,7 @@
         <br>
         <h2 class="text-center" style="color: red;">REGISTRA TODOS LOS PRODUCTOS AL SISTEMA</h2>
         <div class="d-flex justify-content-center align-items-center" style="height: 10vh;">
-            <button type="button" class="btn btn-primary" id="btnCancelar" style="background-color: #B92727; color:aliceblue">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="btnCancelar" style="background-color: #B92727; color:aliceblue">Salir</button>
         </div>
         <br>
         <form action="{{ route('registrar_producto') }}" method="post">

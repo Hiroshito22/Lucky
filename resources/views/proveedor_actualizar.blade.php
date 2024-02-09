@@ -114,7 +114,7 @@
                         </div>
                         <br>
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="button" class="btn btn-default" id="btnCancelar" style="background-color: #B92727;">Cancelar</button>
+                            <button type="button" class="btn btn-default" id="btnCancelar" style="background-color: #B92727;">Salir</button>
                         </div>
                         <script>
                             document.getElementById('btnCancelar').onclick = function() {
